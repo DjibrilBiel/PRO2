@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "span": "cpp",
+        "map": "cpp",
+        "__tree": "cpp"
+    }
+}

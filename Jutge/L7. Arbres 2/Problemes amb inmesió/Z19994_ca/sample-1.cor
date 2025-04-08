@@ -1,0 +1,42 @@
+problem.yml
+
+sample
+  sample-2.cor
+  public
+    sample-2.cor
+    tree-io.hh
+    sample-1.cor
+    program.cc
+    sample-1.cor
+  vendor
+    sample-1.inp
+    tree-io.hh
+
+private-1.inp
+
+sample-2.cor
+
+private
+     P68688.zip
+     program.cc
+     .vscode
+          sample-2.inp
+          test
+               tree.hh
+               private-2.inp
+               private-2.inp
+               program.exe
+          sample-2.inp
+          test
+               problem.yml
+               P68688.pdf
+               tree-io.hh
+          handler.yml
+     test
+          test
+               program.exe
+               main.cc
+          .vscode
+               sample-2.cor
+               program.exe
+

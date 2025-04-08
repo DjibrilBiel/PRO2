@@ -1,0 +1,47 @@
+1
+problem.yml
+
+2
+sample
+|-- sample-2.cor
+|-- public
+|   |-- sample-2.cor
+|   |-- tree-io.hh
+|   |-- sample-1.cor
+|   |-- program.cc
+|   '-- sample-1.cor
+'-- vendor
+    |-- sample-1.inp
+    '-- tree-io.hh
+
+3
+private-1.inp
+
+4
+sample-2.cor
+
+5
+private
+|-- P68688.zip
+|-- program.cc
+|-- .vscode
+|   |-- sample-2.inp
+|   |-- test
+|   |   |-- tree.hh
+|   |   |-- private-2.inp
+|   |   |-- private-2.inp
+|   |   '-- program.exe
+|   |-- sample-2.inp
+|   |-- test
+|   |   |-- problem.yml
+|   |   |-- P68688.pdf
+|   |   '-- tree-io.hh
+|   '-- handler.yml
+'-- test
+    |-- test
+    |   |-- program.exe
+    |   '-- main.cc
+    '-- .vscode
+        |-- sample-2.cor
+        '-- program.exe
+

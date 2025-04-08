@@ -1,0 +1,14 @@
+push_back 3
+get_mid_value
+pop_front
+get_mid_value
+push_front 4
+get_mid_value
+pop_back
+get_mid_value
+push_front 1
+get_mid_value
+push_back 2
+get_mid_value
+push_front 3
+get_mid_value
