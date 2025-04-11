@@ -1,0 +1,45 @@
+\hypertarget{Cubeta_8hh_source}{}\doxysection{Cubeta.\+hh}
+\mbox{\hyperlink{Cubeta_8hh}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#ifndef \_CUBETA\_HH\_}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#define \_CUBETA\_HH\_}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{Lavadora_8hh}{Lavadora.hh}}"{}}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{Prenda_8hh}{Prenda.hh}}"{}}  \textcolor{comment}{// redundante, pero necesario para el diagrama modular}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#ifndef NO\_DIAGRAM    }\textcolor{comment}{// ver explicacion en Prenda.hh}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <stack>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{21 \textcolor{keyword}{class }\mbox{\hyperlink{classCubeta}{Cubeta}} \{}
+\DoxyCodeLine{22  \textcolor{keyword}{public}:}
+\DoxyCodeLine{23     \textcolor{comment}{// Constructoras}}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{32     \mbox{\hyperlink{classCubeta_ae85e70c9cd67454446439891e3f435e1}{Cubeta}}();}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{41     \mbox{\hyperlink{classCubeta_a9615e48038899c5732f61661585f12c7}{Cubeta}}(\textcolor{keyword}{const} \mbox{\hyperlink{classCubeta}{Cubeta}}\& c);}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43     \textcolor{comment}{// Modificadoras}}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{50     \textcolor{keywordtype}{void} \mbox{\hyperlink{classCubeta_a431873df8f99cebe56b4787a5271e395}{anadir\_prenda}}(\textcolor{keyword}{const} \mbox{\hyperlink{classPrenda}{Prenda}}\& p);}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{59     \textcolor{keywordtype}{void} \mbox{\hyperlink{classCubeta_a60a5a4f4133ce02f1e4fe49bbe8b9ec7}{completar\_lavadora}}(\mbox{\hyperlink{classLavadora}{Lavadora}}\& lav);}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61     \textcolor{comment}{// Escritura de una cubeta}}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{69     \textcolor{keywordtype}{void} \mbox{\hyperlink{classCubeta_a3153ac390389f689bead058cd0b1690e}{escribir}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71     \textcolor{comment}{// en este ejemplo no documentamos los elementos privados, lo haremos en el}}
+\DoxyCodeLine{72     \textcolor{comment}{// ejemplo de los experimentos inmunológicos (habrá que cambiar también el}}
+\DoxyCodeLine{73     \textcolor{comment}{// Doxyfile)}}
+\DoxyCodeLine{74  \textcolor{keyword}{private}:}
+\DoxyCodeLine{75     stack<Prenda> ropacolor;}
+\DoxyCodeLine{76     stack<Prenda> ropablanca;}
+\DoxyCodeLine{77     \textcolor{keyword}{static} \textcolor{keywordtype}{void} completar\_lavadora\_pila\_rec(stack<Prenda>\& p, \mbox{\hyperlink{classLavadora}{Lavadora}}\& l);}
+\DoxyCodeLine{78     \textcolor{keyword}{static} \textcolor{keywordtype}{void} completar\_lavadora\_pila\_it(stack<Prenda>\& p, \mbox{\hyperlink{classLavadora}{Lavadora}}\& l);}
+\DoxyCodeLine{79     \textcolor{keyword}{static} \textcolor{keywordtype}{void} escribir\_pila\_prenda(\textcolor{keyword}{const} stack<Prenda>\& p);}
+\DoxyCodeLine{80 \};}
+\DoxyCodeLine{81 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

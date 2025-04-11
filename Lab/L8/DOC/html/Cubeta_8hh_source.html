@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Laboratorio de PRO2. Ejercicio &#39;Gestión de una lavadora&#39;.: Fichero Fuente Cubeta.hh</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Laboratorio de PRO2. Ejercicio &#39;Gestión de una lavadora&#39;.<span id="projectnumber">&#160;version primavera 2023</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Buscar','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Cubeta.hh</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="Cubeta_8hh.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#ifndef _CUBETA_HH_</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#define _CUBETA_HH_</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="Lavadora_8hh.html">Lavadora.hh</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="Prenda_8hh.html">Prenda.hh</a>&quot;</span>  <span class="comment">// redundante, pero necesario para el diagrama modular</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#ifndef NO_DIAGRAM    </span><span class="comment">// ver explicacion en Prenda.hh</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;stack&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="classCubeta.html">   21</a></span><span class="keyword">class </span><a class="code hl_class" href="classCubeta.html">Cubeta</a> {</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="comment">// Constructoras</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="classCubeta.html#ae85e70c9cd67454446439891e3f435e1">   32</a></span>    <a class="code hl_function" href="classCubeta.html#ae85e70c9cd67454446439891e3f435e1">Cubeta</a>();</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="classCubeta.html#a9615e48038899c5732f61661585f12c7">   41</a></span>    <a class="code hl_function" href="classCubeta.html#a9615e48038899c5732f61661585f12c7">Cubeta</a>(<span class="keyword">const</span> <a class="code hl_class" href="classCubeta.html">Cubeta</a>&amp; c);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="comment">// Modificadoras</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="classCubeta.html#a431873df8f99cebe56b4787a5271e395">   50</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classCubeta.html#a431873df8f99cebe56b4787a5271e395">anadir_prenda</a>(<span class="keyword">const</span> <a class="code hl_class" href="classPrenda.html">Prenda</a>&amp; p);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="classCubeta.html#a60a5a4f4133ce02f1e4fe49bbe8b9ec7">   59</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classCubeta.html#a60a5a4f4133ce02f1e4fe49bbe8b9ec7">completar_lavadora</a>(<a class="code hl_class" href="classLavadora.html">Lavadora</a>&amp; lav);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="comment">// Escritura de una cubeta</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="classCubeta.html#a3153ac390389f689bead058cd0b1690e">   69</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classCubeta.html#a3153ac390389f689bead058cd0b1690e">escribir</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="comment">// en este ejemplo no documentamos los elementos privados, lo haremos en el</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="comment">// ejemplo de los experimentos inmunológicos (habrá que cambiar también el</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="comment">// Doxyfile)</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    stack&lt;Prenda&gt; ropacolor;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    stack&lt;Prenda&gt; ropablanca;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> completar_lavadora_pila_rec(stack&lt;Prenda&gt;&amp; p, <a class="code hl_class" href="classLavadora.html">Lavadora</a>&amp; l);</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> completar_lavadora_pila_it(stack&lt;Prenda&gt;&amp; p, <a class="code hl_class" href="classLavadora.html">Lavadora</a>&amp; l);</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> escribir_pila_prenda(<span class="keyword">const</span> stack&lt;Prenda&gt;&amp; p);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>};</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aLavadora_8hh_html"><div class="ttname"><a href="Lavadora_8hh.html">Lavadora.hh</a></div><div class="ttdoc">Especificación de la clase Lavadora.</div></div>
+<div class="ttc" id="aPrenda_8hh_html"><div class="ttname"><a href="Prenda_8hh.html">Prenda.hh</a></div><div class="ttdoc">Especificación de la clase Prenda.</div></div>
+<div class="ttc" id="aclassCubeta_html"><div class="ttname"><a href="classCubeta.html">Cubeta</a></div><div class="ttdoc">Representa una cubeta de ropa.</div><div class="ttdef"><b>Definition:</b> Cubeta.hh:21</div></div>
+<div class="ttc" id="aclassCubeta_html_a3153ac390389f689bead058cd0b1690e"><div class="ttname"><a href="classCubeta.html#a3153ac390389f689bead058cd0b1690e">Cubeta::escribir</a></div><div class="ttdeci">void escribir() const</div><div class="ttdoc">Operación de escritura.</div></div>
+<div class="ttc" id="aclassCubeta_html_a431873df8f99cebe56b4787a5271e395"><div class="ttname"><a href="classCubeta.html#a431873df8f99cebe56b4787a5271e395">Cubeta::anadir_prenda</a></div><div class="ttdeci">void anadir_prenda(const Prenda &amp;p)</div><div class="ttdoc">Añade una prenda a la cubeta.</div></div>
+<div class="ttc" id="aclassCubeta_html_a60a5a4f4133ce02f1e4fe49bbe8b9ec7"><div class="ttname"><a href="classCubeta.html#a60a5a4f4133ce02f1e4fe49bbe8b9ec7">Cubeta::completar_lavadora</a></div><div class="ttdeci">void completar_lavadora(Lavadora &amp;lav)</div><div class="ttdoc">Completa una lavadora con las prendas de la cubeta.</div></div>
+<div class="ttc" id="aclassCubeta_html_a9615e48038899c5732f61661585f12c7"><div class="ttname"><a href="classCubeta.html#a9615e48038899c5732f61661585f12c7">Cubeta::Cubeta</a></div><div class="ttdeci">Cubeta(const Cubeta &amp;c)</div><div class="ttdoc">Creadora copiadora.</div></div>
+<div class="ttc" id="aclassCubeta_html_ae85e70c9cd67454446439891e3f435e1"><div class="ttname"><a href="classCubeta.html#ae85e70c9cd67454446439891e3f435e1">Cubeta::Cubeta</a></div><div class="ttdeci">Cubeta()</div><div class="ttdoc">Creadora por defecto.</div></div>
+<div class="ttc" id="aclassLavadora_html"><div class="ttname"><a href="classLavadora.html">Lavadora</a></div><div class="ttdoc">Representa una lavadora.</div><div class="ttdef"><b>Definition:</b> Lavadora.hh:24</div></div>
+<div class="ttc" id="aclassPrenda_html"><div class="ttname"><a href="classPrenda.html">Prenda</a></div><div class="ttdoc">Representa una prenda de ropa con atributos peso y color.</div><div class="ttdef"><b>Definition:</b> Prenda.hh:21</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Generado por&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+</small></address>
+</body>
+</html>

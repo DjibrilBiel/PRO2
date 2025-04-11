@@ -1,0 +1,51 @@
+\hypertarget{Lavadora_8hh_source}{}\doxysection{Lavadora.\+hh}
+\mbox{\hyperlink{Lavadora_8hh}{Ir a la documentación de este archivo.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#ifndef \_LAVADORA\_HH\_}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#define \_LAVADORA\_HH\_}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{Prenda_8hh}{Prenda.hh}}"{}}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#ifndef NO\_DIAGRAM  }\textcolor{comment}{// ver explicacion en Prenda.hh}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <list>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{24 \textcolor{keyword}{class }\mbox{\hyperlink{classLavadora}{Lavadora}} \{}
+\DoxyCodeLine{25  \textcolor{keyword}{public}:}
+\DoxyCodeLine{26     \textcolor{comment}{// Constructoras}}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{36     \mbox{\hyperlink{classLavadora_a2366b1cd0ba86f8ef8ba8504067dc114}{Lavadora}}();}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38     \textcolor{comment}{// Modificadoras}}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{47     \textcolor{keywordtype}{void} \mbox{\hyperlink{classLavadora_a733af02910dca3f75390be4ca6ac84f6}{inicializar}}(\textcolor{keywordtype}{int} pmax, \textcolor{keywordtype}{bool} col);}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{55     \textcolor{keywordtype}{void} \mbox{\hyperlink{classLavadora_a7e465e1f11ba5ba3cffcee1ce9507e79}{anadir\_prenda}}(\textcolor{keyword}{const} \mbox{\hyperlink{classPrenda}{Prenda}}\& p);}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{68     \textcolor{keywordtype}{void} \mbox{\hyperlink{classLavadora_a82bd403e688482030fcb95f0c3fd62d1}{lavado}}();}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70     \textcolor{comment}{// Consultoras}}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{78     \textcolor{keywordtype}{bool} \mbox{\hyperlink{classLavadora_af081f8133ddfca2fd4f1f79575620c5a}{esta\_inicializada}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{86     \textcolor{keywordtype}{bool} \mbox{\hyperlink{classLavadora_a5d538cc8efce89e5da5a38d879bb2659}{consultar\_color}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{94     \textcolor{keywordtype}{int} \mbox{\hyperlink{classLavadora_a411751a432a84ab91196e6b827190f05}{consultar\_peso}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{95 }
+\DoxyCodeLine{102     \textcolor{keywordtype}{int} \mbox{\hyperlink{classLavadora_a725ef6a2786b400e0cffebe7a690602e}{consultar\_peso\_maximo}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{103 }
+\DoxyCodeLine{104     \textcolor{comment}{// Escritura de la lavadora}}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{115     \textcolor{keywordtype}{void} \mbox{\hyperlink{classLavadora_a2372c33a5f76dda6e3892d118ae726f1}{escribir}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{116 }
+\DoxyCodeLine{117  \textcolor{keyword}{private}:}
+\DoxyCodeLine{118     list<Prenda> prendas;}
+\DoxyCodeLine{119     \textcolor{keywordtype}{bool} col;}
+\DoxyCodeLine{120     \textcolor{keywordtype}{int} pes;}
+\DoxyCodeLine{121     \textcolor{keywordtype}{bool} ini;}
+\DoxyCodeLine{122     \textcolor{keywordtype}{int} pesmax;}
+\DoxyCodeLine{123 \};}
+\DoxyCodeLine{124 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}
