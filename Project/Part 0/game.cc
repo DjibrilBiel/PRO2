@@ -69,13 +69,20 @@ void Game::update(pro2::Window& window) {
 
 void Game::paint(pro2::Window& window) {
     window.clear(sky_blue);
-    for (const Platform& p : platforms_) {
-        p.paint(window);
-    }
 
     const Rect cam = window.camera_rect();
     const int w = window.width();
     const int h = window.height();
+
+    if (pampallugues_) {
+        paint_rect(window, {cam.left + 410, cam.top + 20, cam.right - 20, cam.bottom - 250}, yellow);
+        pampallugues_ = false;
+    } else pampallugues_ = true;
+    
+    for (const Platform& p : platforms_) {
+        p.paint(window);
+    }
+
     paint_hline(window, cam.left, cam.right, cam.top, black);
     paint_hline(window, cam.left, cam.right, cam.bottom - 1, black);
     paint_vline(window, cam.left, cam.top, cam.bottom, black);
@@ -83,6 +90,4 @@ void Game::paint(pro2::Window& window) {
 
     mario_.paint(window);
     mario2_.paint(window);
-
-    paint_rect(window, {cam.left + 410, cam.top + 20, cam.right - 20, cam.bottom - 250}, yellow);
 }
