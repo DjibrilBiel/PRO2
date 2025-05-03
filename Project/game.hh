@@ -4,16 +4,15 @@
 #include <vector>
 #include "mario.hh"
 #include "platform.hh"
+#include "coin.hh"
 #include "window.hh"
 
 class Game {
     Mario                 mario_;
-    Mario                 mario2_;
     std::vector<Platform> platforms_;
+    std::vector<Coin>     coins_;
 
     bool finished_;
-    bool paused_;
-    bool pampallugues_;
 
     void process_keys(pro2::Window& window);
     void update_objects(pro2::Window& window);

@@ -42,15 +42,6 @@ void paint_sprite(pro2::Window&                        window,
                   const std::vector<std::vector<int>>& sprite,
                   bool                                 mirror);
 
-/**
- * @brief Pinta tots el píxels del rectangle del color.
- * 
- * @param window Ventana.
- * @param r Rectangle.
- * @param c Color.
-*/
-void paint_rect(Window& window, Rect r, Color c);
-
 }  // namespace pro2
 
 #endif

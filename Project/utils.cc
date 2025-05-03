@@ -30,12 +30,4 @@ void paint_sprite(pro2::Window&              window,
     }
 }
 
-void paint_rect(Window& window, Rect r, Color c) {
-    for (int y = r.top; y < r.bottom; ++y) {
-        for (int x = r.left; x < r.right; ++x) {
-            window.set_pixel({x, y}, c);
-        }
-    }
-}
-
 }  // namespace pro2

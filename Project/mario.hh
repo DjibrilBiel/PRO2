@@ -16,16 +16,10 @@ class Mario {
     bool grounded_ = false;
 	bool looking_left_ = false;
 
-    char jump_key_, left_key_, right_key_;
-
 	void apply_physics_();
 	
  public:
-    Mario(pro2::Pt pos, char jump_key, char left_key, char right_key) : pos_(pos), last_pos_(pos) {
-        jump_key_ = jump_key;
-        left_key_ = left_key;
-        right_key_ = right_key;
-    }
+    Mario(pro2::Pt pos) : pos_(pos), last_pos_(pos) {}
 
     void paint(pro2::Window& window) const;
 
