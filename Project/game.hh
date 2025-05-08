@@ -12,6 +12,7 @@ class Game {
     std::vector<Platform> platforms_;
     std::vector<Coin>     coins_;
 
+    int  num_coins_taken_ = 0;
     bool finished_;
 
     void process_keys(pro2::Window& window);
@@ -26,6 +27,10 @@ class Game {
 
     bool is_finished() const {
         return finished_;
+    }
+
+    int num_coins_taken() {
+        return num_coins_taken_;
     }
 
  private:
