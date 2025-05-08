@@ -7,6 +7,7 @@ Aquest repositori conté els exercicis i altres arxius relacionats amb l'assigna
 - **Exam**: Codi i solucions de les entregues pràctiques de l'assignatura.
 - **Jutge**: Codi i solucions dels exercicis realitzats al *Jutge.org*.
 - **Lab**: Recursos addicionals com apunts o enunciats dels Laboratoris.
+- **Project**: Codi del projecte *Mario PRO2*.
 
 ## Com utilitzar el repositori
 
