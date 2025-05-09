@@ -10,12 +10,15 @@ Game::Game(int width, int height)
       },
       coins_{
           Coin(width / 2, 100),
+          Coin((width / 2), 82),
       },
       finished_(false) {
     for (int i = 1; i < 20; i++) 
         platforms_.push_back(Platform(250 + i * 200, 400 + i * 200, 150, 161));
-    for (int i = 1; i < 5; i++) 
-        coins_.push_back(Coin((width / 2) + i * 14, 100));
+    for (int i = 1; i < 60; i++) {
+        coins_.push_back(Coin((width / 2) + i * 12, 100));
+        coins_.push_back(Coin((width / 2) + i * 12, 82));
+    }
 }
 
 void Game::process_keys(pro2::Window& window) {
@@ -65,6 +68,7 @@ void Game::update(pro2::Window& window) {
 
 void Game::paint(pro2::Window& window) {
     window.clear(sky_blue);
+
     for (const Platform& p : platforms_) {
         p.paint(window);
     }
@@ -73,4 +77,6 @@ void Game::paint(pro2::Window& window) {
             c.paint(window);
     }
     mario_.paint(window);
+
+    window.paint_interface(num_coins_taken_);
 }

@@ -73,7 +73,7 @@ void Coin::paint(pro2::Window& window) const {
     for (int i = 0; i < tex_h; ++i) {
         for (int j = 0; j < tex_w; ++j) {
             static std::vector<std::vector<int>> actual_coin_texture;
-            const int num_frame = (window.frame_count() % 32) / 8;
+            const int num_frame = (window.frame_count() % 40) / 10;
             if (num_frame == 0)
                 actual_coin_texture = coin_texture_0_;
             else if (num_frame == 2)

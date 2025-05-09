@@ -3,6 +3,7 @@
 
 #include <cassert>
 #include <string>
+#include <vector>
 
 #define FENSTER_HEADER
 #include "fenster.h"
@@ -69,6 +70,9 @@ enum Keys {
  */
 class Window {
  private:
+    static const std::vector<std::vector<std::vector<int>>> digit_font_;
+    static const std::vector<std::vector<int>> cross_;
+
     /**
      * @brief La estructura de datos que Fenster necesita para trabajar
      */
@@ -459,6 +463,11 @@ class Window {
     Pt topleft() const {
         return topleft_;
     }
+
+    void draw_digit(int digit, int dx, int dy, const int font_h, const int font_w);
+
+    void paint_interface(int& num_coins);
+    
 };
 
 }  // namespace pro2
