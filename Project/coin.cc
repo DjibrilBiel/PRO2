@@ -60,7 +60,7 @@ const vector<vector<int>> Coin::coin_texture_2_ = {
     {m, m, w, m, m, b, m, m, b, b},
     {_, m, m, b, b, m, m, b, b, _},
 	{_, m, m, m, m, m, m, b, b, _},
-	{_, _, m, m, m, m, b, b, _, _},
+	{_, _, m, m, m, m, b, b, _, _}
 };
 // clang-format on
 
@@ -73,10 +73,10 @@ void Coin::paint(pro2::Window& window) const {
     for (int i = 0; i < tex_h; ++i) {
         for (int j = 0; j < tex_w; ++j) {
             static std::vector<std::vector<int>> actual_coin_texture;
-            const int num_frame = (window.frame_count() % 40) / 10;
-            if (num_frame == 0)
+            const int num_frame = (window.frame_count() % 50) / 10;
+            if (num_frame == 0 or num_frame == 1)
                 actual_coin_texture = coin_texture_0_;
-            else if (num_frame == 2)
+            else if (num_frame == 3)
                 actual_coin_texture = coin_texture_2_;
             else 
                 actual_coin_texture = coin_texture_1_;

@@ -4,12 +4,13 @@
 #include <vector>
 #include "mario.hh"
 #include "platform.hh"
+#include "block.hh"
 #include "coin.hh"
-#include "window.hh"
 
 class Game {
     Mario                 mario_;
     std::vector<Platform> platforms_;
+    std::vector<Block>    blocks_;
     std::vector<Coin>     coins_;
 
     int  num_coins_taken_ = 0;

@@ -4,7 +4,8 @@
 #include <iostream>
 #include <vector>
 #include "platform.hh"
-#include "window.hh"
+#include "block.hh"
+#include "utils.hh"
 
 class Mario {
  private:
@@ -48,7 +49,7 @@ class Mario {
 
     void jump();
 
-    void update(pro2::Window& window, const std::vector<Platform>& platforms);
+    void update(pro2::Window& window, const std::vector<Platform>& platforms, const std::vector<Block>& blocks);
 
  private:
     static const std::vector<std::vector<int>> mario_sprite_normal_;

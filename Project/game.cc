@@ -8,6 +8,9 @@ Game::Game(int width, int height)
           Platform(0, 200, 250, 261),
           Platform(250, 400, 150, 161),
       },
+      blocks_{
+          Block(0, 261),
+      },
       coins_{
           Coin(width / 2, 100),
           Coin((width / 2), 82),
@@ -19,6 +22,9 @@ Game::Game(int width, int height)
         coins_.push_back(Coin((width / 2) + i * 12, 100));
         coins_.push_back(Coin((width / 2) + i * 12, 82));
     }
+    for(int i = 1; i < 5; ++i) {
+        blocks_.push_back(Block(i * 16, 180));
+    }
 }
 
 void Game::process_keys(pro2::Window& window) {
@@ -29,7 +35,11 @@ void Game::process_keys(pro2::Window& window) {
 }
 
 void Game::update_objects(pro2::Window& window) {
-    mario_.update(window, platforms_);
+    mario_.update(window, platforms_, blocks_);
+    /* for (Block& b : blocks_) {
+        if (not b.is_broken())
+            b.update(window, mario_);
+    } */
     for (Coin& c : coins_) {
         if (not c.is_taken())
             c.update(window, mario_, num_coins_taken_);
@@ -75,6 +85,10 @@ void Game::paint(pro2::Window& window) {
     for (const Coin& c : coins_) {
         if (not c.is_taken())
             c.paint(window);
+    }
+    for (const Block& b : blocks_) {
+        if (not b.is_broken())
+            b.paint(window);
     }
     mario_.paint(window);
 
