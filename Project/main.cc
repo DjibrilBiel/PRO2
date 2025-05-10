@@ -18,6 +18,4 @@ int main() {
         game.update(window);
         game.paint(window);
     }
-
-    cout << "Monedas conseguidas: " << game.num_coins_taken() << endl;
 }

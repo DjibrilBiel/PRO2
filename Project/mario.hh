@@ -28,6 +28,10 @@ class Mario {
         return pos_;
     }
 
+    void set_x(int x) {
+        pos_.x = x;
+    }
+
     void set_y(int y) {
         pos_.y = y;
     }

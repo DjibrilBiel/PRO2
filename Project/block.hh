@@ -6,42 +6,50 @@
 
 class Block {
  private:
-    int posX_, posY_;
-    pro2::Rect body_;
+    int left_, top_, right_, bottom_;
 
     bool broken_ = false;
 
     static const std::vector<std::vector<int>> block_texture_;
 
  public:
-    Block() : posX_(0), posY_(0), body_({0, 0, 16, 16}) {}
+    Block() : left_(0), top_(0), right_(16), bottom_(16) {}
 
-    Block(const Block& other) : posX_(other.posX_), posY_(other.posY_) {
-        body_ = {posX_, posY_, posX_ + 16, posX_ + 16};
-    }
+    Block(const Block& other)
+        : left_(other.left_), top_(other.top_), right_(other.right_), bottom_(other.bottom_) {}
 
-    Block(pro2::Pt pos) : posX_(pos.x), posY_(pos.y) {
-        body_ = {posX_, posY_, posX_ + 16, posX_ + 16};
-    }
+    Block(pro2::Pt pos) : left_(pos.x), top_(pos.y), right_(pos.x + 16), bottom_(pos.y + 16) {} 
 
     Block(int posx, int posy)
-        : posX_(posx), posY_(posy), body_({posx, posy, posx + 16, posy + 16}) {}
+        : left_(posx), top_(posy), right_(posx + 16), bottom_(posy + 16) {}
 
     void paint(pro2::Window& window) const;
 
     bool is_broken() const;
 
+    int left() const {
+        return left_;
+    }
+
     int top() const {
-        return body_.top;
+        return top_;
+    }
+
+    int right() const {
+        return right_;
     }
 
     int bottom() const {
-        return body_.bottom;
+        return bottom_;
     }
 
     bool has_crossed_block_downwards(pro2::Pt plast, pro2::Pt pcurr) const;
 
-    /* bool has_crossed_block_upwards(pro2::Pt plast, pro2::Pt pcurr) const; */
+    bool has_crossed_block_upwards(pro2::Pt plast, pro2::Pt pcurr) const;
+
+    bool has_crossed_block_left_to_right(pro2::Pt plast, pro2::Pt pcurr) const;
+
+    bool has_crossed_block_right_to_left(pro2::Pt plast, pro2::Pt pcurr) const;
 };
 
 #endif

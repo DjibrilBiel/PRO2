@@ -27,16 +27,13 @@ const vector<vector<int>> Block::block_texture_ = {
 // clang-format on
 
 void Block::paint(pro2::Window& window) const {
-    const int tex_h = 16;
-    const int tex_w = 16;
-    int base_x = posX_ + tex_w;
-    int base_y = posY_ + tex_h;
-
-    for (int i = 0; i < tex_h; ++i) {
-        for (int j = 0; j < tex_w; ++j) {
-            int color = block_texture_[i][j];
+    const int xsz = block_texture_.size();
+    const int ysz = block_texture_[0].size();
+    for (int i = top_ + 1; i <= bottom_; i++) {
+        for (int j = left_; j <= right_; j++) {
+            int color = block_texture_[(i - top_ - 1) % xsz][(j - left_) % ysz];
             if (color >= 0)
-                window.set_pixel({ base_x + j, base_y + i }, color);
+                window.set_pixel({j, i}, color);
         }
     }
 }
@@ -46,13 +43,17 @@ bool Block::is_broken() const {
 }
 
 bool Block::has_crossed_block_downwards(pro2::Pt plast, pro2::Pt pcurr) const {
-    return (body_.left <= plast.x && plast.x <= body_.right) && (body_.left <= pcurr.x && pcurr.x <= body_.right) && (plast.y <= body_.top && pcurr.y >= body_.top);
+    return (left_ - 6 <= plast.x && plast.x <= right_ + 6) && (left_ - 6 <= pcurr.x && pcurr.x <= right_ + 6) && (plast.y <= top_ && pcurr.y >= top_);
 }
 
-/* bool Block::has_crossed_block_upwards(pro2::Pt plast, pro2::Pt pcurr) const {
-    int left = posX_;
-    int right = posX_ + 16;
-    int bottom = posY_;
-    
-    return (left <= plast.x && plast.x <= right) && (left <= pcurr.x && pcurr.x <= right) && (plast.y >= bottom && pcurr.y <= bottom);
-} */
+bool Block::has_crossed_block_upwards(pro2::Pt plast, pro2::Pt pcurr) const {
+    return (left_ - 6 <= plast.x && plast.x <= right_ + 6) && (left_ - 6 <= pcurr.x && pcurr.x <= right_ + 6) && (plast.y >= bottom_ + 15 && pcurr.y <= bottom_ + 15);
+}
+
+bool Block::has_crossed_block_left_to_right(pro2::Pt plast, pro2::Pt pcurr) const {
+    return plast.x <= left_ - 6 && pcurr.x >= left_ - 6 && ((plast.y - 1 >= top_ || pcurr.y - 1 >= top_) && (plast.y <= bottom_ + 15 || pcurr.y <= bottom_ + 15));
+}
+
+bool Block::has_crossed_block_right_to_left(pro2::Pt plast, pro2::Pt pcurr) const {
+    return plast.x >= right_ + 6 && pcurr.x <= right_ + 6 && ((plast.y - 1 >= top_ || pcurr.y - 1 >= top_) && (plast.y <= bottom_ + 15 || pcurr.y <= bottom_ + 15));
+}
