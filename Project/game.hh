@@ -6,12 +6,14 @@
 #include "platform.hh"
 #include "block.hh"
 #include "coin.hh"
+#include "block_coin.hh"
 
 class Game {
-    Mario                 mario_;
-    std::vector<Platform> platforms_;
-    std::vector<Block>    blocks_;
-    std::vector<Coin>     coins_;
+    Mario                   mario_;
+    std::vector<Platform>   platforms_;
+    std::vector<Block>      blocks_;
+    std::vector<Coin>       coins_;
+    std::vector<Block_Coin> block_coins_;
 
     int  num_coins_taken_ = 0;
     bool finished_;

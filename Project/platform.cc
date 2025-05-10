@@ -32,7 +32,7 @@ void Platform::paint(pro2::Window& window) const {
     const int xsz = platform_texture_.size();
     const int ysz = platform_texture_[0].size();
     for (int i = top_ + 1; i <= bottom_; i++) {
-        for (int j = left_; j <= right_; j++) {
+        for (int j = left_; j < right_; j++) {
             window.set_pixel({j, i}, platform_texture_[(i - top_ - 1) % xsz][(j - left_) % ysz]);
         }
     }
