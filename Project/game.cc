@@ -4,13 +4,14 @@ using namespace pro2;
 Game::Game(int width, int height)
     : mario_({width / 2, 150}),
       platforms_{
-          Platform(100, 300, 200, 216),
           Platform(0, 200, 250, 266),
+          Platform(100, 300, 200, 216),
           Platform(250, 400, 150, 166),
       },
       blocks_{
           Block(0, 218),
           Block(0, 202),
+          Block(150, 150),
       },
       coins_{
           Coin(250, 100),
@@ -18,6 +19,7 @@ Game::Game(int width, int height)
       },
       block_coins_{
           Block_Coin(64, 202),
+          Block_Coin(200, 150),
       },
       finished_(false) {
     for (int i = 1; i < 20; i++) 
@@ -90,8 +92,9 @@ void Game::paint(pro2::Window& window) {
         if (not b.is_broken())
             b.paint(window);
     }
-    for (const Block_Coin& bc : block_coins_) {
+    for (Block_Coin& bc : block_coins_) {
         bc.paint(window);
+        bc.paint_coin(window);
     }
     mario_.paint(window);
 

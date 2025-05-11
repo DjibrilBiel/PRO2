@@ -13,7 +13,7 @@ const int s = 0xFF5722;
 const int b = 0x000000;
 const int _ = -1;
 
-static const std::vector<std::vector<int>> coin_texture = {
+static const std::vector<std::vector<int>> coin_texture_ = {
     {_, _, c, c, c, c, b, b, _, _},
 	{_, c, c, c, c, c, c, b, b, _},
 	{_, c, c, s, s, c, c, b, b, _},
@@ -214,15 +214,15 @@ void Window::draw_digit(int digit, int dx, int dy, const int font_h, const int f
 }
 
 void Window::paint_interface(int& num_coins) {
-    const int tex_h = (int)coin_texture.size();
-    const int tex_w = (int)coin_texture[0].size();
+    const int tex_h = (int)coin_texture_.size();
+    const int tex_w = (int)coin_texture_[0].size();
     
     const Pt cam = camera_center();
     const Pt margin = {cam.x - (width() / 2) + 8, cam.y - (height() / 2) + 8};
     
     for (int i = 0; i < tex_h; ++i) {
         for (int j = 0; j < tex_w; ++j) {
-            int color = coin_texture[i][j];
+            int color = coin_texture_[i][j];
             if (color >= 0) {
                 set_pixel({ margin.x + j, margin.y + i }, color);
             }

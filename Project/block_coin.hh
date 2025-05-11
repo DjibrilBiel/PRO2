@@ -10,8 +10,11 @@ class Block_Coin {
     int left_, top_, right_, bottom_;
 
     bool hit_ = false;
+    int show_coin_ = 0;
 
-    static const vector<vector<int>> block_hit_texture_, block_texture_;
+    static const vector<vector<int>> block_hit_texture_, block_texture_,
+                                     coin_from_block_0_, coin_from_block_1_,
+                                     coin_from_block_2_, coin_from_block_3_;
 
  public:
     Block_Coin() : left_(0), top_(0), right_(16), bottom_(16) {}
@@ -29,6 +32,8 @@ class Block_Coin {
     bool is_hit() const;
 
     void hit(int& num_coins);
+
+    void paint_coin(pro2::Window& window);
 
     int left() const {
         return left_;
