@@ -60,18 +60,15 @@ const vector<vector<int>> Coin::coin_texture_2_ = {
     {m, m, w, m, m, b, m, m, b, b},
     {_, m, m, b, b, m, m, b, b, _},
 	{_, m, m, m, m, m, m, b, b, _},
-	{_, _, m, m, m, m, b, b, _, _}
+	{_, _, m, m, m, m, b, b, _, _},
 };
 // clang-format on
 
 void Coin::paint(pro2::Window& window) const {
-    const int tex_h = 14;
-    const int tex_w = 10;
-    int base_x = posX_ + tex_w;
-    int base_y = posY_ + tex_h;
-
-    for (int i = 0; i < tex_h; ++i) {
-        for (int j = 0; j < tex_w; ++j) {
+    const int xsz = coin_texture_0_.size();
+    const int ysz = coin_texture_0_[0].size();
+    for (int i = top_ + 1; i <= bottom_; i++) {
+        for (int j = left_; j < right_; j++) {
             static std::vector<std::vector<int>> actual_coin_texture;
             const int num_frame = (window.frame_count() % 50) / 10;
             if (num_frame == 0 or num_frame == 1)
@@ -81,9 +78,9 @@ void Coin::paint(pro2::Window& window) const {
             else 
                 actual_coin_texture = coin_texture_1_;
 
-            int color = actual_coin_texture[i][j];
+            int color = actual_coin_texture[(i - top_ - 1) % xsz][(j - left_) % ysz];
             if (color >= 0)
-                window.set_pixel({ base_x + j, base_y + i }, color);
+                window.set_pixel({j, i}, color);
         }
     }
 }
@@ -92,22 +89,17 @@ bool Coin::is_taken() const {
     return taken_;
 }
 
-void Coin::update(pro2::Window& window, Mario& mario, int& num_coins_taken) {
-    const int tex_h = 10;
-    const int tex_w = 14;
-    int c_left   = posX_;
-    int c_right  = posX_ + tex_w - 1;
-    int c_top    = posY_;
-    int c_bottom = posY_ + tex_h - 1;
-
-    pro2::Pt mpos = mario.pos();
-    int m_left   = mpos.x - 13;
-    int m_right  = mpos.x - 5;
-    int m_top    = mpos.y - 33;
-    int m_bottom = mpos.y - 25;
-
-    if ((m_right >= c_left) && (m_left <= c_right) && (m_bottom >= c_top) && (m_top <= c_bottom)) {
+void Coin::taken(int& num_coins_taken) {
+    if (not taken_) {
         taken_ = true;
         ++num_coins_taken;
     }
+}
+
+bool Coin::has_crossed_coin(pro2::Pt plast, pro2::Pt pcurr) const {
+    bool from_top = (left_ - 6 <= plast.x && plast.x <= right_ + 6) && (left_ - 6 <= pcurr.x && pcurr.x <= right_ + 6) && (plast.y <= top_ && pcurr.y >= top_);
+    bool from_bottom = (left_ - 6 <= plast.x && plast.x <= right_ + 6) && (left_ - 6 <= pcurr.x && pcurr.x <= right_ + 6) && (plast.y >= bottom_ + 15 && pcurr.y <= bottom_ + 15);
+    bool from_left = plast.x <= left_ - 6 && pcurr.x >= left_ - 6 && ((plast.y - 1 >= top_ || pcurr.y - 1 >= top_) && (plast.y <= bottom_ + 15 || pcurr.y <= bottom_ + 15));
+    bool from_right = plast.x >= right_ + 6 && pcurr.x <= right_ + 6 && ((plast.y - 1 >= top_ || pcurr.y - 1 >= top_) && (plast.y <= bottom_ + 15 || pcurr.y <= bottom_ + 15));
+    return from_top or from_bottom or from_left or from_right;
 }

@@ -22,7 +22,7 @@ const vector<vector<int>> Block::block_texture_ = {
     {c, c, c, b, c, c, c, c, c, c, c, b, c, c, c, c},
     {c, c, c, b, c, c, c, c, c, c, c, b, c, c, c, c},
     {c, c, c, b, c, c, c, c, c, c, c, b, c, c, c, c},
-    {b, b, b, b, b, b, b, b, b, b, b, b, b, b, b, b}
+    {b, b, b, b, b, b, b, b, b, b, b, b, b, b, b, b},
 };
 // clang-format on
 

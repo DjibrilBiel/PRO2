@@ -67,7 +67,7 @@ void Mario::jump() {
     }
 }
 
-void Mario::update(pro2::Window& window, const vector<Platform>& platforms, const vector<Block>& blocks, vector<Block_Coin>& block_coins, int& num_coins) {
+void Mario::update(pro2::Window& window, const vector<Platform>& platforms, const vector<Block>& blocks, vector<Block_Coin>& block_coins, vector<Coin>& coins, int& num_coins) {
     last_pos_ = pos_;
     if (window.is_key_down(Keys::Space)) {
         jump();
@@ -125,6 +125,11 @@ void Mario::update(pro2::Window& window, const vector<Platform>& platforms, cons
         } else if (block_coin.has_crossed_block_right_to_left(last_pos_, pos_)) {
             speed_.x = 0;
             set_x(block_coin.right() + 6);
+        }
+    }
+    for (Coin& coin : coins) {
+        if (coin.has_crossed_coin(last_pos_, pos_)) {
+            coin.taken(num_coins);
         }
     }
 }

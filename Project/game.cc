@@ -39,15 +39,11 @@ void Game::process_keys(pro2::Window& window) {
 }
 
 void Game::update_objects(pro2::Window& window) {
-    mario_.update(window, platforms_, blocks_, block_coins_, num_coins_taken_);
+    mario_.update(window, platforms_, blocks_, block_coins_, coins_, num_coins_taken_);
     /* for (Block& b : blocks_) {
         if (not b.is_broken())
             b.update(window, mario_);
     } */
-    for (Coin& c : coins_) {
-        if (not c.is_taken())
-            c.update(window, mario_, num_coins_taken_);
-    }
 }
 
 void Game::update_camera(pro2::Window& window) {

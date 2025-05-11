@@ -22,7 +22,7 @@ const vector<vector<int>> Block_Coin::block_texture_ = {
     {c, c, c, b, c, c, c, c, c, c, c, b, c, c, c, c},
     {c, c, c, b, c, c, c, c, c, c, c, b, c, c, c, c},
     {c, c, c, b, c, c, c, c, c, c, c, b, c, c, c, c},
-    {b, b, b, b, b, b, b, b, b, b, b, b, b, b, b, b}
+    {b, b, b, b, b, b, b, b, b, b, b, b, b, b, b, b},
 };
 
 const vector<vector<int>> Block_Coin::block_hit_texture_ = {
@@ -41,7 +41,7 @@ const vector<vector<int>> Block_Coin::block_hit_texture_ = {
     {b, c, c, c, c, c, c, c, c, c, c, c, c, c, c, b},
     {b, c, b, c, c, c, c, c, c, c, c, c, c, b, c, b},
     {b, c, c, c, c, c, c, c, c, c, c, c, c, c, c, b},
-    {b, b, b, b, b, b, b, b, b, b, b, b, b, b, b, b}
+    {b, b, b, b, b, b, b, b, b, b, b, b, b, b, b, b},
 };
 // clang-format on
 
