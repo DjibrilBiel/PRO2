@@ -144,7 +144,13 @@ void Block_Coin::hit(int& num_coins) {
     }
 }
 
-void Block_Coin::paint_coin(pro2::Window& window) {
+void Block_Coin::update_coin() {
+    if (show_coin_ > 0) {
+        --show_coin_;
+    }
+}
+
+void Block_Coin::paint_coin(pro2::Window& window) const {
     if (show_coin_ > 0) {
         const int xsz = coin_from_block_0_.size();
         const int ysz = coin_from_block_0_[0].size();
@@ -166,7 +172,6 @@ void Block_Coin::paint_coin(pro2::Window& window) {
                     window.set_pixel({j + left_ + 4, i + top_ - 20}, color);
             }
         }
-        --show_coin_;
     }
 }
 

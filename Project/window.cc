@@ -265,4 +265,13 @@ void Window::paint_interface(int& num_coins) {
     draw_digit(units, dx2, dy, font_h, font_w);
 }
 
+Rect Window::get_viewport_rect() const {
+    return Rect{
+        topleft_.x,
+        topleft_.y,
+        topleft_.x + width(),
+        topleft_.y + height()
+    };
+}
+
 }  // namespace pro2

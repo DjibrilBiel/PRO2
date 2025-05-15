@@ -22,15 +22,20 @@ Game::Game(int width, int height)
           Block_Coin(200, 150),
       },
       finished_(false) {
-    for (int i = 1; i < 20; i++) 
+    for (int i = 1; i < 1000; i++) 
         platforms_.push_back(Platform(250 + i * 200, 400 + i * 200, 150, 166));
-    for (int i = 1; i < 60; i++) {
+    for (int i = 1; i < 500; i++) {
         coins_.push_back(Coin(250 + i * 12, 100));
         coins_.push_back(Coin(250 + i * 12, 82));
     }
     for(int i = 1; i < 4; ++i) {
         blocks_.push_back(Block(i * 16, 202));
     }
+
+    for (auto& p : platforms_)   platform_finder_.add(&p);
+    for (auto& b : blocks_)      block_finder_.add(&b);
+    for (auto& c : coins_)       coin_finder_.add(&c);
+    for (auto& bc: block_coins_) block_coin_finder_.add(&bc);
 }
 
 void Game::process_keys(pro2::Window& window) {
@@ -42,10 +47,8 @@ void Game::process_keys(pro2::Window& window) {
 
 void Game::update_objects(pro2::Window& window) {
     mario_.update(window, platforms_, blocks_, block_coins_, coins_, num_coins_taken_);
-    /* for (Block& b : blocks_) {
-        if (not b.is_broken())
-            b.update(window, mario_);
-    } */
+    for (auto& bc : block_coins_) 
+        bc.update_coin();
 }
 
 void Game::update_camera(pro2::Window& window) {
@@ -81,20 +84,26 @@ void Game::update(pro2::Window& window) {
 void Game::paint(pro2::Window& window) {
     window.clear(sky_blue);
 
-    for (const Platform& p : platforms_) {
-        p.paint(window);
+    pro2::Rect view = window.get_viewport_rect();
+    auto platform_to_paint = platform_finder_.query(view);
+    auto block_to_paint = block_finder_.query(view);
+    auto coin_to_paint = coin_finder_.query(view);
+    auto block_coin_to_paint = block_coin_finder_.query(view);
+
+    for (auto p : platform_to_paint) {
+        p->paint(window);
     }
-    for (const Coin& c : coins_) {
-        if (not c.is_taken())
-            c.paint(window);
+    for (auto c : coin_to_paint) {
+        if (not c->is_taken())
+            c->paint(window);
     }
-    for (const Block& b : blocks_) {
-        if (not b.is_broken())
-            b.paint(window);
+    for (auto b : block_to_paint) {
+        if (not b->is_broken())
+            b->paint(window);
     }
-    for (Block_Coin& bc : block_coins_) {
-        bc.paint(window);
-        bc.paint_coin(window);
+    for (auto bc : block_coin_to_paint) {
+        bc->paint(window);
+        bc->paint_coin(window);
     }
     mario_.paint(window);
 

@@ -50,6 +50,10 @@ class Block {
     bool has_crossed_block_left_to_right(pro2::Pt plast, pro2::Pt pcurr) const;
 
     bool has_crossed_block_right_to_left(pro2::Pt plast, pro2::Pt pcurr) const;
+
+    pro2::Rect get_rect() const {
+        return {left_, top_, right_, bottom_};
+    }
 };
 
 #endif

@@ -3,6 +3,14 @@
         "ios": "cpp",
         "random": "cpp",
         "queue": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "cwchar": "cpp",
+        "vector": "cpp",
+        "exception": "cpp",
+        "initializer_list": "cpp",
+        "iosfwd": "cpp",
+        "new": "cpp",
+        "type_traits": "cpp",
+        "utility": "cpp"
     }
 }

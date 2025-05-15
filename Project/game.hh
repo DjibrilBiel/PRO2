@@ -1,7 +1,7 @@
 #ifndef GAME_HH
 #define GAME_HH
 
-#include <vector>
+#include "finder.hh"
 #include "mario.hh"
 #include "platform.hh"
 #include "block.hh"
@@ -14,6 +14,11 @@ class Game {
     std::vector<Block>      blocks_;
     std::vector<Coin>       coins_;
     std::vector<Block_Coin> block_coins_;
+
+    Finder<Platform>   platform_finder_;
+    Finder<Block>      block_finder_;
+    Finder<Coin>       coin_finder_;
+    Finder<Block_Coin> block_coin_finder_;
 
     int  num_coins_taken_ = 0;
     bool finished_;

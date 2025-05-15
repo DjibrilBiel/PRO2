@@ -30,6 +30,10 @@ class Coin {
     void taken(int& num_coins_taken);
 
     bool has_crossed_coin(pro2::Pt plast, pro2::Pt pcurr) const;
+
+    pro2::Rect get_rect() const {
+        return {left_, top_, right_, bottom_};
+    }
 };
 
 #endif

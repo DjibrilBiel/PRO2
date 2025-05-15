@@ -468,6 +468,12 @@ class Window {
 
     void paint_interface(int& num_coins);
     
+    /**
+     * Retorna el rectangle visible en coordenades:
+     * left = topleft_.x, top = topleft_.y,
+     * right = topleft_.x + width(), bottom = topleft_.y + height()
+    */
+    pro2::Rect get_viewport_rect() const;
 };
 
 }  // namespace pro2
