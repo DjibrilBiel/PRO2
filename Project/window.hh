@@ -77,7 +77,9 @@ class Window {
      * @brief La estructura de datos que Fenster necesita para trabajar
      */
     int     last_keys_[256];
+    // Estado del botón del ratón en fotograma anterior
     int     last_mouse_;
+    // Instancia interna de Fenster para manejo de ventana y eventos
     fenster fenster_;
 
     /**
@@ -433,6 +435,15 @@ class Window {
         return {topleft_.x + width / 2, topleft_.y + height / 2};
     }
 
+    /**
+     * @brief Devuelve el rectángulo que representa la vista actual de la cámara.
+     *
+     * @returns Un `Rect` definido por:
+     *   - `left`   = topleft_.x  
+     *   - `top`    = topleft_.y  
+     *   - `right`  = topleft_.x + width()  
+     *   - `bottom` = topleft_.y + height()
+     */
     Rect camera_rect() const {
         const int width = fenster_.width / zoom_;
         const int height = fenster_.height / zoom_;
@@ -464,8 +475,31 @@ class Window {
         return topleft_;
     }
 
+    /**
+     * @brief Dibuja un dígito en la ventana usando la fuente interna.
+     *
+     * Representa el `digit` en pantalla utilizando patrones predefinidos
+     * (`digit_font_`), situándolo con su esquina superior izquierda
+     * en `(dx, dy)` y usando `font_h` filas por `font_w` columnas.
+     *
+     * @param digit El número (0–9) que se quiere dibujar.
+     * @param dx Coordenada X de destino para el dígito.
+     * @param dy Coordenada Y de destino para el dígito.
+     * @param font_h Altura en píxeles de cada glifo.
+     * @param font_w Anchura en píxeles de cada glifo.
+     */
     void draw_digit(int digit, int dx, int dy, const int font_h, const int font_w);
 
+    /**
+     * @brief Pinta la interfaz de usuario (por ejemplo, contador de monedas).
+     *
+     * Dibuja los elementos de la interfaz (texto, iconos, contadores, etc.)
+     * en la capa superior de la ventana, basándose en el valor de `num_coins`
+     * y actualizando su apariencia.
+     *
+     * @param num_coins Referencia al número de monedas que se mostrará.
+     *                   Puede modificarse para devolver eventos de la UI.
+     */
     void paint_interface(int& num_coins);
     
     /**
