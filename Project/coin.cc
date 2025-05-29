@@ -96,10 +96,10 @@ void Coin::taken(int& num_coins_taken) {
     }
 }
 
-bool Coin::has_crossed_coin(pro2::Pt plast, pro2::Pt pcurr) const {
-    bool from_top = (left_ - 6 <= plast.x && plast.x <= right_ + 6) && (left_ - 6 <= pcurr.x && pcurr.x <= right_ + 6) && (plast.y <= top_ && pcurr.y >= top_);
-    bool from_bottom = (left_ - 6 <= plast.x && plast.x <= right_ + 6) && (left_ - 6 <= pcurr.x && pcurr.x <= right_ + 6) && (plast.y >= bottom_ + 15 && pcurr.y <= bottom_ + 15);
-    bool from_left = plast.x <= left_ - 6 && pcurr.x >= left_ - 6 && ((plast.y - 1 >= top_ || pcurr.y - 1 >= top_) && (plast.y <= bottom_ + 15 || pcurr.y <= bottom_ + 15));
-    bool from_right = plast.x >= right_ + 6 && pcurr.x <= right_ + 6 && ((plast.y - 1 >= top_ || pcurr.y - 1 >= top_) && (plast.y <= bottom_ + 15 || pcurr.y <= bottom_ + 15));
+bool Coin::has_crossed_coin(pro2::Rect pmod, pro2::Pt plast, pro2::Pt pcurr) const {
+    bool from_top = (left_ + pmod.left <= plast.x && plast.x <= right_ + pmod.right) && (left_ + pmod.left <= pcurr.x && pcurr.x <= right_ + pmod.right) && (plast.y <= top_ + pmod.top && pcurr.y >= top_+ pmod.top);
+    bool from_bottom = (left_ + pmod.left <= plast.x && plast.x <= right_ + pmod.right) && (left_ + pmod.left <= pcurr.x && pcurr.x <= right_ + pmod.right) && (plast.y >= bottom_ + pmod.bottom && pcurr.y <= bottom_ + pmod.bottom);
+    bool from_left = plast.x <= left_ + pmod.left && pcurr.x >= left_ + pmod.left && ((plast.y - 1 >= top_ + pmod.top || pcurr.y - 1 >= top_ + pmod.top) && (plast.y <= bottom_ + pmod.bottom || pcurr.y <= bottom_ + pmod.bottom));
+    bool from_right = plast.x >= right_ + pmod.right && pcurr.x <= right_ + pmod.right && ((plast.y - 1 >= top_ + pmod.top || pcurr.y - 1 >= top_ + pmod.top) && (plast.y <= bottom_ + pmod.bottom || pcurr.y <= bottom_ + pmod.bottom));
     return from_top or from_bottom or from_left or from_right;
 }

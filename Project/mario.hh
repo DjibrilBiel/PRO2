@@ -24,6 +24,8 @@ class Mario {
     bool grounded_ = false;
     // Dirección a la que mira Mario (false = derecha, true = izquierda)
 	bool looking_left_ = false;
+    // Indicador mario es pequeño (false) o grande (true)
+    bool status_mario_ = true;
 
     /**
      * @brief Aplica la física básica a Mario.
@@ -139,13 +141,21 @@ class Mario {
      */
     void update(pro2::Window& window, const std::vector<Platform>& platforms, const std::vector<Block>& blocks, vector<Block_Coin>& block_coins, vector<Coin>& coins, int& num_coins);
 
+    pro2::Rect get_rect_modifiers() const {
+        if (status_mario_)
+            return {-8, 0, 8, 31};
+        return {-6, 0, 6, 15};
+    }
+
     pro2::Rect get_rect() const {
-        return {pos_.x - 6, pos_.y, pos_.x + 6, pos_.y + 15};
+        pro2::Rect pos_mod = get_rect_modifiers();
+        return {pos_.x + pos_mod.left, pos_.y + pos_mod.top, pos_.x + pos_mod.right, pos_.y + pos_mod.bottom};
     }
 
  private:
     // Sprites de Mario en estado normal
     static const std::vector<std::vector<int>> mario_sprite_normal_;
+    static const std::vector<std::vector<int>> mario_sprite_big_;
 };
 
 #endif

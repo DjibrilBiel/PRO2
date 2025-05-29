@@ -107,5 +107,5 @@ void Game::paint(pro2::Window& window) {
     }
     mario_.paint(window);
 
-    window.paint_interface(num_coins_taken_);
+    ccounter_.paint_interface(window, num_coins_taken_);
 }

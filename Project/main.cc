@@ -1,6 +1,7 @@
 #include <vector>
 #include "game.hh"
 #include "window.hh"
+#include "coin_counter.hh"
 
 using namespace std;
 

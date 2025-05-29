@@ -20,7 +20,7 @@ class Movement {
        obj_->pos.x += vel_.x;
        obj_->pos.y += vel_.y;
 
-       for (finder_obj : finder_set) {
+       for (auto finder_obj : finder_set) {
           auto hits = finder_obj.query(obj_->get_rect());
           for (auto* w : hits) {
              if (w != obj_) {
@@ -43,7 +43,9 @@ class Movement {
        }
     }
 
-    bool touchedMario() const {return touched_mario_}
+    bool touchedMario() const {
+       return touched_mario_
+    }
 
     void setVelocity(int vx, int vy) {
        vel_.x = vx;

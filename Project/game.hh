@@ -1,6 +1,7 @@
 #ifndef GAME_HH
 #define GAME_HH
 
+#include "coin_counter.hh"
 #include "finder.hh"
 #include "mario.hh"
 #include "platform.hh"
@@ -22,6 +23,8 @@ class Game {
     Finder<Block>      block_finder_;
     Finder<Coin>       coin_finder_;
     Finder<Block_Coin> block_coin_finder_;
+
+    Coin_Counter ccounter_;
 
     // Contador de monedas recogidas
     int  num_coins_taken_ = 0;

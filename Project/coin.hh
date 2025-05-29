@@ -86,7 +86,7 @@ class Coin {
      * @param pcurr Posición actual del punto.
      * @returns `true` si el punto cruzó el rectángulo de la moneda.
      */
-    bool has_crossed_coin(pro2::Pt plast, pro2::Pt pcurr) const;
+    bool has_crossed_coin(pro2::Rect pmod, pro2::Pt plast, pro2::Pt pcurr) const;
 
     /**
      * @brief Obtiene el rectángulo que delimita la moneda.

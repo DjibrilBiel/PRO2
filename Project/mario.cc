@@ -31,11 +31,52 @@ const vector<vector<int>> Mario::mario_sprite_normal_ = {
     {_, w, w, w, _, _, _, _, w, w, w, _},
     {w, w, w, w, _, _, _, _, w, w, w, w},
 };
+
+const vector<vector<int>> Mario::mario_sprite_big_ = {
+    {_, _, _, _, _, r, r, r, r, r, _, _, _, _, _, _},
+    {_, _, _, r, r, r, r, r, r, y, _, _, _, _, _, _},
+    {_, _, r, r, r, r, r, r, y, y, _, _, _, _, _, _},
+    {_, _, r, r, r, r, r, r, r, r, r, r, r, _, _, _},
+    {_, _, h, h, h, s, s, h, s, s, s, _, _, _, _, _},
+    {_, h, s, s, h, s, s, h, h, s, s, s, s, _, _, _},
+    {_, h, s, s, h, h, s, s, s, s, s, s, s, s, _, _},
+    {h, h, s, s, h, h, s, s, s, h, s, s, s, s, _, _},
+    {h, h, s, s, s, s, s, h, h, h, h, h, h, _, _, _},
+    {h, h, h, h, s, s, s, s, h, h, h, h, h, _, _, _},
+    {_, _, h, h, h, s, s, s, s, s, s, s, _, _, _, _},
+    {_, _, _, _, b, s, s, s, s, s, r, _, _, _, _, _},
+    {_, _, _, _, r, b, r, r, r, r, b, r, _, _, _, _},
+    {_, _, _, r, r, b, r, r, r, r, b, r, r, _, _, _},
+    {_, _, r, r, r, b, r, r, r, r, b, r, r, r, _, _},
+    {_, r, r, r, r, b, r, r, r, r, b, r, r, r, r, _},
+    {_, r, r, r, r, b, r, r, r, r, b, r, r, r, r, _},
+    {r, r, r, r, b, b, r, r, r, r, b, b, r, r, r, r},
+    {r, r, r, r, b, b, r, r, r, r, b, b, r, r, r, r},
+    {r, r, r, r, b, b, b, b, b, b, b, b, r, r, r, r},
+    {r, r, r, r, b, y, b, b, b, b, y, b, r, r, r, r},
+    {g, g, g, g, b, b, b, b, b, b, b, b, g, g, g, g},
+    {g, g, g, g, b, b, b, b, b, b, b, b, g, g, g, g},
+    {_, g, g, g, b, b, b, b, b, b, b, b, g, g, g, _},
+    {_, g, g, b, b, b, b, b, b, b, b, b, b, g, g, _},
+    {_, _, b, b, b, b, b, b, b, b, b, b, b, b, _, _},
+    {_, b, b, b, b, b, b, _, _, b, b, b, b, b, b, _},
+    {_, b, b, b, b, b, _, _, _, _, b, b, b, b, b, _},
+    {_, b, b, b, b, b, _, _, _, _, b, b, b, b, b, _},
+    {_, _, w, w, w, w, _, _, _, _, w, w, w, w, _, _},
+    {w, w, w, w, w, w, _, _, _, _, w, w, w, w, w, w},
+    {w, w, w, w, w, w, _, _, _, _, w, w, w, w, w, w},
+};
 // clang-format on
 
 void Mario::paint(pro2::Window& window) const {
-    const Pt top_left = {pos_.x - 6, pos_.y - 15};
-    paint_sprite(window, top_left, mario_sprite_normal_, looking_left_);
+    
+    if (status_mario_) {
+        const Pt top_left = {pos_.x - 8, pos_.y - 31};
+        paint_sprite(window, top_left, mario_sprite_big_, looking_left_);
+    } else {
+        const Pt top_left = {pos_.x - 6, pos_.y - 15};
+        paint_sprite(window, top_left, mario_sprite_normal_, looking_left_);
+    }
 }
 
 void Mario::apply_physics_() {
@@ -90,45 +131,47 @@ void Mario::update(pro2::Window& window, const vector<Platform>& platforms, cons
     // Check position
     set_grounded(false);
 
+    Rect pos_mod = get_rect_modifiers();
+
     for (const Platform& platform : platforms) {
-        if (platform.has_crossed_floor_downwards(last_pos_, pos_)) {
+        if (platform.has_crossed_floor_downwards(pos_mod, last_pos_, pos_)) {
             set_grounded(true);
             set_y(platform.top());
         }
     }
     for (Block_Coin& block_coin : block_coins) {
-        if (block_coin.has_crossed_block_downwards(last_pos_, pos_)) {
+        if (block_coin.has_crossed_block_downwards(pos_mod, last_pos_, pos_)) {
             set_grounded(true);
             set_y(block_coin.top());
-        } else if (block_coin.has_crossed_block_upwards(last_pos_, pos_)) {
+        } else if (block_coin.has_crossed_block_upwards(pos_mod, last_pos_, pos_)) {
             block_coin.hit(num_coins);
             speed_.y = 0;
             set_y(block_coin.bottom() + 16);
-        } else if (block_coin.has_crossed_block_left_to_right(last_pos_, pos_)) {
+        } else if (block_coin.has_crossed_block_left_to_right(pos_mod, last_pos_, pos_)) {
             speed_.x = 0;
             set_x(block_coin.left() - 6);
-        } else if (block_coin.has_crossed_block_right_to_left(last_pos_, pos_)) {
+        } else if (block_coin.has_crossed_block_right_to_left(pos_mod, last_pos_, pos_)) {
             speed_.x = 0;
             set_x(block_coin.right() + 6);
         }
     }
     for (const Block& block : blocks) {
-        if (block.has_crossed_block_downwards(last_pos_, pos_)) {
+        if (block.has_crossed_block_downwards(pos_mod, last_pos_, pos_)) {
             set_grounded(true);
             set_y(block.top());
-        } else if (block.has_crossed_block_upwards(last_pos_, pos_)) {
+        } else if (block.has_crossed_block_upwards(pos_mod, last_pos_, pos_)) {
             speed_.y = 0;
             set_y(block.bottom() + 16);
-        } else if (block.has_crossed_block_left_to_right(last_pos_, pos_)) {
+        } else if (block.has_crossed_block_left_to_right(pos_mod, last_pos_, pos_)) {
             speed_.x = 0;
             set_x(block.left() - 6);
-        } else if (block.has_crossed_block_right_to_left(last_pos_, pos_)) {
+        } else if (block.has_crossed_block_right_to_left(pos_mod, last_pos_, pos_)) {
             speed_.x = 0;
             set_x(block.right() + 6);
         }
     }
     for (Coin& coin : coins) {
-        if (coin.has_crossed_coin(last_pos_, pos_)) {
+        if (coin.has_crossed_coin(pos_mod, last_pos_, pos_)) {
             coin.taken(num_coins);
         }
     }
