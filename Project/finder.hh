@@ -54,17 +54,6 @@ class Finder {
         return cells;
     }
 
-    /**
-     * @brief Comprueba si dos rectángulos se intersectan.
-     *
-     * @param a Primer rectángulo.
-     * @param b Segundo rectángulo.
-     * @returns true si hay intersección, false en caso contrario.
-     */
-    static bool intersect(const Rect& a, const Rect& b) {
-        return a.left <= b.right and b.left <= a.right and a.top <= b.bottom and b.top <= a.bottom;
-    }
-
 
  public:
     // Constructor por defecto
@@ -141,6 +130,17 @@ class Finder {
             }
         }
         return result;
+    }
+
+    /**
+     * @brief Comprueba si dos rectángulos se intersectan.
+     *
+     * @param a Primer rectángulo.
+     * @param b Segundo rectángulo.
+     * @returns true si hay intersección, false en caso contrario.
+     */
+    static bool intersect(const Rect& a, const Rect& b) {
+        return a.left <= b.right and b.left <= a.right and a.top <= b.bottom and b.top <= a.bottom;
     }
 };
 

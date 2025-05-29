@@ -139,6 +139,10 @@ class Mario {
      */
     void update(pro2::Window& window, const std::vector<Platform>& platforms, const std::vector<Block>& blocks, vector<Block_Coin>& block_coins, vector<Coin>& coins, int& num_coins);
 
+    pro2::Rect get_rect() const {
+        return {pos_.x - 6, pos_.y, pos_.x + 6, pos_.y + 15};
+    }
+
  private:
     // Sprites de Mario en estado normal
     static const std::vector<std::vector<int>> mario_sprite_normal_;
