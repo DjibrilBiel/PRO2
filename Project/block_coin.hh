@@ -145,7 +145,7 @@ class Block_Coin {
      * @param pcurr Posición actual del punto.
      * @returns `true` si el punto cruza el borde superior moviéndose hacia abajo.
      */
-    bool has_crossed_block_downwards(pro2::Pt plast, pro2::Pt pcurr) const;
+    bool has_crossed_block_downwards(pro2::Rect pmod, pro2::Pt plast, pro2::Pt pcurr) const;
 
     /**
      * @brief Comprueba cruce hacia arriba del bloque.
@@ -154,7 +154,7 @@ class Block_Coin {
      * @param pcurr Posición actual del punto.
      * @returns `true` si el punto cruza el borde inferior moviéndose hacia arriba.
      */
-    bool has_crossed_block_upwards(pro2::Pt plast, pro2::Pt pcurr) const;
+    bool has_crossed_block_upwards(pro2::Rect pmod, pro2::Pt plast, pro2::Pt pcurr) const;
 
     /**
      * @brief Comprueba cruce de izquierda a derecha.
@@ -163,7 +163,7 @@ class Block_Coin {
      * @param pcurr Posición actual del punto.
      * @returns `true` si cruza el borde izquierdo moviéndose hacia la derecha.
      */
-    bool has_crossed_block_left_to_right(pro2::Pt plast, pro2::Pt pcurr) const;
+    bool has_crossed_block_left_to_right(pro2::Rect pmod, pro2::Pt plast, pro2::Pt pcurr) const;
 
     /**
      * @brief Comprueba cruce de derecha a izquierda.
@@ -172,7 +172,7 @@ class Block_Coin {
      * @param pcurr Posición actual del punto.
      * @returns `true` si cruza el borde derecho moviéndose hacia la izquierda.
      */
-    bool has_crossed_block_right_to_left(pro2::Pt plast, pro2::Pt pcurr) const;
+    bool has_crossed_block_right_to_left(pro2::Rect pmod, pro2::Pt plast, pro2::Pt pcurr) const;
 
     /**
      * @brief Obtiene el rectángulo que delimita el bloque-moneda.

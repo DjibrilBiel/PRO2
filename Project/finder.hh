@@ -24,14 +24,14 @@ class Finder {
      * Clave: puntero al objeto T.
      * Valor: vector de pares (x, y) de celdas.
      */
-    map<const T*, vector<pair<int, int>>> obj_;
+    map<T*, vector<pair<int, int>>> obj_;
     /**
      * @brief Mapa de celda a conjunto de objetos que la ocupan.
      *
      * Clave: par (x, y).
      * Valor: conjunto de punteros a T en esa celda.
      */
-    map<pair<int, int>, set<const T*>>    grid_;
+    map<pair<int, int>, set<T*>>    grid_;
 
     /**
      * @brief Calcula las celdas de cuadrícula cubiertas por un rectángulo.
@@ -66,7 +66,7 @@ class Finder {
      *
      * @param t Puntero al objeto a añadir.
      */
-    void add(const T *t) {
+    void add(T *t) {
         Rect rect = t->get_rect();
         auto cells = get_covered_cells(rect);
         obj_[t] = cells;
@@ -81,7 +81,7 @@ class Finder {
      *
      * @param t Puntero al objeto a actualizar.
      */
-    void update(const T *t) {
+    void update(T *t) {
         remove(t);
         add(t);
     }
@@ -93,7 +93,7 @@ class Finder {
      *
      * @param t Puntero al objeto a eliminar.
      */
-    void remove(const T *t) {
+    void remove(T *t) {
         auto it = obj_.find(t);
         if (it != obj_.end()) {
             for (auto coord : it->second) {
@@ -117,8 +117,8 @@ class Finder {
      * @param qrect Rectángulo de búsqueda.
      * @returns Conjunto de punteros a objetos T intersectados.
      */
-    set<const T*> query(Rect qrect) const {
-        set<const T*> result;
+    set<T*> query(Rect qrect) const {
+        set<T*> result;
         auto cells = get_covered_cells(qrect);
         for (auto coord : cells) {
             auto git = grid_.find(coord);

@@ -46,7 +46,13 @@ void Game::process_keys(pro2::Window& window) {
 }
 
 void Game::update_objects(pro2::Window& window) {
-    mario_.update(window, platforms_, blocks_, block_coins_, coins_, num_coins_taken_);
+    pro2::Rect view = window.get_viewport_rect();
+    auto platform = platform_finder_.query(view);
+    auto block = block_finder_.query(view);
+    auto coin = coin_finder_.query(view);
+    auto block_coin = block_coin_finder_.query(view);
+    mario_.update(window, platform, block, block_coin, coin, num_coins_taken_);
+
     for (auto& bc : block_coins_) 
         bc.update_coin();
 }

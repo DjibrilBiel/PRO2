@@ -108,7 +108,7 @@ void Mario::jump() {
     }
 }
 
-void Mario::update(pro2::Window& window, const vector<Platform>& platforms, const vector<Block>& blocks, vector<Block_Coin>& block_coins, vector<Coin>& coins, int& num_coins) {
+void Mario::update(pro2::Window& window, const set<Platform*>& platforms, set<Block*>& blocks, set<Block_Coin*>& block_coins, set<Coin*>& coins, int& num_coins) {
     last_pos_ = pos_;
     if (window.is_key_down(Keys::Space)) {
         jump();
@@ -133,46 +133,52 @@ void Mario::update(pro2::Window& window, const vector<Platform>& platforms, cons
 
     Rect pos_mod = get_rect_modifiers();
 
-    for (const Platform& platform : platforms) {
-        if (platform.has_crossed_floor_downwards(pos_mod, last_pos_, pos_)) {
+    for (auto& platform : platforms) {
+        if (platform->has_crossed_floor_downwards(last_pos_, pos_)) {
             set_grounded(true);
-            set_y(platform.top());
+            set_y(platform->top());
         }
     }
-    for (Block_Coin& block_coin : block_coins) {
-        if (block_coin.has_crossed_block_downwards(pos_mod, last_pos_, pos_)) {
+    for (auto& block_coin : block_coins) {
+        if (block_coin->has_crossed_block_downwards(pos_mod, last_pos_, pos_)) {
             set_grounded(true);
-            set_y(block_coin.top());
-        } else if (block_coin.has_crossed_block_upwards(pos_mod, last_pos_, pos_)) {
-            block_coin.hit(num_coins);
+            set_y(block_coin->top());
+        } else if (block_coin->has_crossed_block_upwards(pos_mod, last_pos_, pos_)) {
+            block_coin->hit(num_coins);
             speed_.y = 0;
-            set_y(block_coin.bottom() + 16);
-        } else if (block_coin.has_crossed_block_left_to_right(pos_mod, last_pos_, pos_)) {
+            set_y(block_coin->bottom() + pos_mod.bottom + 1);
+        } else if (block_coin->has_crossed_block_left_to_right(pos_mod, last_pos_, pos_)) {
             speed_.x = 0;
-            set_x(block_coin.left() - 6);
-        } else if (block_coin.has_crossed_block_right_to_left(pos_mod, last_pos_, pos_)) {
+            set_x(block_coin->left() + pos_mod.left);
+        } else if (block_coin->has_crossed_block_right_to_left(pos_mod, last_pos_, pos_)) {
             speed_.x = 0;
-            set_x(block_coin.right() + 6);
+            set_x(block_coin->right() + pos_mod.right);
         }
     }
-    for (const Block& block : blocks) {
-        if (block.has_crossed_block_downwards(pos_mod, last_pos_, pos_)) {
+    for (auto& block : blocks) {
+        if (block->is_broken()) continue;
+        if (block->has_crossed_block_downwards(pos_mod, last_pos_, pos_)) {
             set_grounded(true);
-            set_y(block.top());
-        } else if (block.has_crossed_block_upwards(pos_mod, last_pos_, pos_)) {
+            set_y(block->top());
+        } else if (block->has_crossed_block_upwards(pos_mod, last_pos_, pos_)) {
             speed_.y = 0;
-            set_y(block.bottom() + 16);
-        } else if (block.has_crossed_block_left_to_right(pos_mod, last_pos_, pos_)) {
+            set_y(block->bottom() + pos_mod.bottom + 1);
+            if (status_mario_) block->broken();
+        } else if (block->has_crossed_block_left_to_right(pos_mod, last_pos_, pos_)) {
             speed_.x = 0;
-            set_x(block.left() - 6);
-        } else if (block.has_crossed_block_right_to_left(pos_mod, last_pos_, pos_)) {
+            set_x(block->left() + pos_mod.left);
+        } else if (block->has_crossed_block_right_to_left(pos_mod, last_pos_, pos_)) {
             speed_.x = 0;
-            set_x(block.right() + 6);
+            set_x(block->right() + pos_mod.right);
         }
     }
-    for (Coin& coin : coins) {
-        if (coin.has_crossed_coin(pos_mod, last_pos_, pos_)) {
-            coin.taken(num_coins);
+    for (auto& coin : coins) {
+        if (coin->has_crossed_coin(pos_mod, last_pos_, pos_)) {
+            coin->taken(num_coins);
         }
+    }
+
+    if (window.was_key_pressed('M')) {
+        status_mario_ = not status_mario_;
     }
 }

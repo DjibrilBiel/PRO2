@@ -175,18 +175,18 @@ void Block_Coin::paint_coin(pro2::Window& window) const {
     }
 }
 
-bool Block_Coin::has_crossed_block_downwards(pro2::Pt plast, pro2::Pt pcurr) const {
-    return (left_ - 6 <= plast.x && plast.x <= right_ + 6) && (left_ - 6 <= pcurr.x && pcurr.x <= right_ + 6) && (plast.y <= top_ && pcurr.y >= top_);
+bool Block_Coin::has_crossed_block_downwards(pro2::Rect pmod, pro2::Pt plast, pro2::Pt pcurr) const {
+    return (left_ + pmod.left + 1 <= plast.x && plast.x <= right_ + pmod.right - 1) && (left_ + pmod.left + 1 <= pcurr.x && pcurr.x <= right_ + pmod.right - 1) && (plast.y <= top_ + pmod.top && pcurr.y >= top_ + pmod.top);
 }
 
-bool Block_Coin::has_crossed_block_upwards(pro2::Pt plast, pro2::Pt pcurr) const {
-    return (left_ - 6 <= plast.x && plast.x <= right_ + 6) && (left_ - 6 <= pcurr.x && pcurr.x <= right_ + 6) && (plast.y >= bottom_ + 15 && pcurr.y <= bottom_ + 15);
+bool Block_Coin::has_crossed_block_upwards(pro2::Rect pmod, pro2::Pt plast, pro2::Pt pcurr) const {
+    return (left_ + pmod.left + 1 <= plast.x && plast.x <= right_ + pmod.right - 1) && (left_ + pmod.left + 1 <= pcurr.x && pcurr.x <= right_ + pmod.right - 1) && (plast.y >= bottom_ + pmod.bottom && pcurr.y <= bottom_ + pmod.bottom);
 }
 
-bool Block_Coin::has_crossed_block_left_to_right(pro2::Pt plast, pro2::Pt pcurr) const {
-    return plast.x <= left_ - 6 && pcurr.x >= left_ - 6 && ((plast.y - 1 >= top_ || pcurr.y - 1 >= top_) && (plast.y <= bottom_ + 15 || pcurr.y <= bottom_ + 15));
+bool Block_Coin::has_crossed_block_left_to_right(pro2::Rect pmod, pro2::Pt plast, pro2::Pt pcurr) const {
+    return plast.x <= left_ + pmod.left && pcurr.x >= left_ + pmod.left && ((plast.y - 2 >= top_ + pmod.top || pcurr.y - 2 >= top_ + pmod.top) && (plast.y <= bottom_ + pmod.bottom || pcurr.y <= bottom_ + pmod.bottom));
 }
 
-bool Block_Coin::has_crossed_block_right_to_left(pro2::Pt plast, pro2::Pt pcurr) const {
-    return plast.x >= right_ + 6 && pcurr.x <= right_ + 6 && ((plast.y - 1 >= top_ || pcurr.y - 1 >= top_) && (plast.y <= bottom_ + 15 || pcurr.y <= bottom_ + 15));
+bool Block_Coin::has_crossed_block_right_to_left(pro2::Rect pmod, pro2::Pt plast, pro2::Pt pcurr) const {
+    return plast.x >= right_ + pmod.right && pcurr.x <= right_ + pmod.right && ((plast.y - 2 >= top_ + pmod.top || pcurr.y - 2 >= top_ + pmod.top) && (plast.y <= bottom_ + pmod.bottom || pcurr.y <= bottom_ + pmod.bottom));
 }

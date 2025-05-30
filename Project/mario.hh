@@ -2,7 +2,7 @@
 #define MARIO_HH
 
 #include <iostream>
-#include <vector>
+#include <set>
 #include "platform.hh"
 #include "coin.hh"
 #include "block.hh"
@@ -25,7 +25,7 @@ class Mario {
     // Dirección a la que mira Mario (false = derecha, true = izquierda)
 	bool looking_left_ = false;
     // Indicador mario es pequeño (false) o grande (true)
-    bool status_mario_ = true;
+    bool status_mario_ = false;
 
     /**
      * @brief Aplica la física básica a Mario.
@@ -139,7 +139,7 @@ class Mario {
      * @param coins         Vector de monedas sueltas en el nivel.
      * @param num_coins     Referencia al contador total de monedas recogidas.
      */
-    void update(pro2::Window& window, const std::vector<Platform>& platforms, const std::vector<Block>& blocks, vector<Block_Coin>& block_coins, vector<Coin>& coins, int& num_coins);
+    void update(pro2::Window& window, const std::set<Platform*>& platforms, std::set<Block*>& blocks, set<Block_Coin*>& block_coins, set<Coin*>& coins, int& num_coins);
 
     pro2::Rect get_rect_modifiers() const {
         if (status_mario_)
