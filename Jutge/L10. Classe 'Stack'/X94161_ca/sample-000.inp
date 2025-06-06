@@ -1,0 +1,12 @@
+push a
+top 
+top2 
+push b
+top 
+top2 
+push c
+top 
+top2 
+pop
+top 
+top2 
