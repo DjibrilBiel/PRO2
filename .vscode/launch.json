@@ -8,10 +8,10 @@
             "name": "Debugar amb GDB",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/program", // <--- si el nom del programa es diu diferent, cal canviar-lo aquí
+            "program": "${workspaceFolder}/${relativeFileDirname}/program", // <--- si el nom del programa es diu diferent, cal canviar-lo aquí
             "args": [],
             "stopAtEntry": true, // <---- Posant `false` aquí no pararà al principi del programa
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}/${relativeFileDirname}",
             "environment": [],
             "externalConsole": false, // <--- Posant true aquí llença una consola externa
             "MIMode": "gdb",
