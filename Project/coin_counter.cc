@@ -6,23 +6,35 @@ const int s = 0xFF5722;
 const int b = 0x000000;
 const int _ = -1;
 
+/**
+ * @brief Matriu de píxels amb la textura de la icona de moneda.
+ *
+ * Patró de colors que es renderitza a la cantonada superior esquerra
+ * de la interfície per representar l'ítem moneda.
+ */
 const std::vector<std::vector<int>> Coin_Counter::coin_texture_ = {
-    {_, _, c, c, c, c, b, b, _, _},
+  {_, _, c, c, c, c, b, b, _, _},
 	{_, c, c, c, c, c, c, b, b, _},
 	{_, c, c, s, s, c, c, b, b, _},
 	{c, c, s, c, c, b, c, c, b, b},
-    {c, c, s, c, c, b, c, c, b, b},
+  {c, c, s, c, c, b, c, c, b, b},
 	{c, c, s, c, c, b, c, c, b, b},
-    {c, c, s, c, c, b, c, c, b, b},
-    {c, c, s, c, c, b, c, c, b, b},
-    {c, c, s, c, c, b, c, c, b, b},
-    {c, c, s, c, c, b, c, c, b, b},
-    {c, c, s, c, c, b, c, c, b, b},
-    {_, c, c, b, b, c, c, b, b, _},
+  {c, c, s, c, c, b, c, c, b, b},
+  {c, c, s, c, c, b, c, c, b, b},
+  {c, c, s, c, c, b, c, c, b, b},
+  {c, c, s, c, c, b, c, c, b, b},
+  {c, c, s, c, c, b, c, c, b, b},
+  {_, c, c, b, b, c, c, b, b, _},
 	{_, c, c, c, c, c, c, b, b, _},
 	{_, _, c, c, c, c, b, b, _, _},
 };
 
+/**
+ * @brief Matriu de fonts per a cada dígit (0–9).
+ *
+ * Cada element és un patró de 7×7 píxels que determina la forma
+ * de cada nombre quan es dibuixa amb draw_digit().
+ */
 const std::vector<std::vector<std::vector<int>>> digit_font_ = {{
   // 0
   {{{_, _, w, w, w, _, _},
@@ -105,6 +117,13 @@ const std::vector<std::vector<std::vector<int>>> digit_font_ = {{
     {_, _, _, _, w, w, _},
     {_, w, w, w, w, _, _}}}
 }};
+
+/**
+ * @brief Patró de creu per separar la icona de la quantitat.
+ *
+ * Matriu 5×5 que es mostra entre la icona i el número de monedes
+ * per millorar la lectura visual.
+ */
 const std::vector<std::vector<int>> cross_ = {
     {w, _, _, _, w},
     {_, w, _, w, _},
@@ -112,6 +131,7 @@ const std::vector<std::vector<int>> cross_ = {
     {_, w, _, w, _},
     {w, _, _, _, w}
 };
+
 
 void Coin_Counter::draw_digit(pro2::Window& window, int digit, int dx, int dy, const int font_h, const int font_w) {
     for (int y = 0; y < font_h; ++y) {

@@ -51,10 +51,17 @@ void Game::update_objects(pro2::Window& window) {
     auto block = block_finder_.query(view);
     auto coin = coin_finder_.query(view);
     auto block_coin = block_coin_finder_.query(view);
+
     mario_.update(window, platform, block, block_coin, coin, num_coins_taken_);
 
-    for (auto& bc : block_coins_) 
-        bc.update_coin();
+    for (auto& b : block) {
+        if (b->is_broken()) block_finder_.remove(b);
+    }
+    for (auto& c : coin) {
+        if (c->is_taken()) coin_finder_.remove(c);
+    }
+
+    for (auto& bc : block_coin) bc->update_coin();
 }
 
 void Game::update_camera(pro2::Window& window) {

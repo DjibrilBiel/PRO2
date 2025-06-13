@@ -3,185 +3,203 @@
 
 #include "utils.hh"
 #include <vector>
-using namespace std;
 
 /**
  * @class Block_Coin
+ * @brief Representa un bloc que allibera una moneda en ser colpejat.
  *
- * Representa un bloque que puede liberar una moneda al ser golpeado.
+ * La classe Block_Coin hereta el comportament bàsic de col·lisió i renderitzat
+ * dels blocs i hi afegeix un estat intern per gestionar l'alliberament i
+ * animació d'una moneda quan es colpeja per primera vegada.
  */
 class Block_Coin {
  private:
-    //  Coordenadas del borde del bloque
+    /**
+     * @brief Coordenada del bloc.
+     */
     int left_, top_, right_, bottom_;
 
-    // Indicador de si el bloque ya ha sido golpeado
+    /**
+     * @brief Indica si el bloc ja ha estat colpejat.
+     *
+     * Un cop colpejat, no alliberarà més monedes.
+     */
     bool hit_ = false;
-    // Contador para animación o estado de la moneda mostrada
+
+    /**
+     * @brief Comptador per a l'animació de la moneda.
+     *
+     * Controla la durada i estat de l'animació un cop el bloc ha estat colpejat.
+     */
     int show_coin_ = 0;
 
     /**
-     * @brief Texturas para diferentes estados y animaciones:
-     * - block_hit_texture_: bloque golpeado
-     * - block_texture_: estado normal del bloque
-     * - coin_from_block_0..3_: frames de la moneda emergente
+     * @brief Textures estàtiques per al render del bloc i la moneda.
+     *
+     * - block_texture_: textura estàndard del bloc.
+     * - block_hit_texture_: textura quan el bloc és colpejat.
+     * - coin_from_block_0_..coin_from_block_3_: fotogrames de l'animació de la moneda.
      */
-    static const vector<vector<int>> block_hit_texture_, block_texture_, coin_from_block_0_,
-                                     coin_from_block_1_, coin_from_block_2_, coin_from_block_3_;
+    static const std::vector<std::vector<int>> block_texture_;
+    static const std::vector<std::vector<int>> block_hit_texture_;
+    static const std::vector<std::vector<int>> coin_from_block_0_;
+    static const std::vector<std::vector<int>> coin_from_block_1_;
+    static const std::vector<std::vector<int>> coin_from_block_2_;
+    static const std::vector<std::vector<int>> coin_from_block_3_;
 
  public:
     /**
-     * @brief Constructor por defecto.
+     * @brief Constructor per defecte.
      *
-     * Crea un bloque de 16x16 en (0,0) sin haber sido golpeado.
+     * Inicialitza un bloc de 16×16 píxels a la posició (0, 0) sense haver estat
+     * colpejat.
      */
-    Block_Coin() : left_(0), top_(0), right_(16), bottom_(16) {}
+    Block_Coin()
+        : left_(0), top_(0), right_(16), bottom_(16) {}
 
     /**
-     * @brief Constructor de copia.
+     * @brief Constructor de còpia.
      *
-     * Duplica posición y estado de otro Block_Coin.
+     * Replica posició i estat d'un altre bloc-moneda.
      *
-     * @param other Bloque-moneda a copiar.
+     * @param other Referència al Block_Coin a copiar.
      */
     Block_Coin(const Block_Coin& other)
-        : left_(other.left_), top_(other.top_), right_(other.right_), bottom_(other.bottom_) {}
+        : left_(other.left_), top_(other.top_), right_(other.right_), bottom_(other.bottom_),
+          hit_(other.hit_), show_coin_(other.show_coin_) {}
 
     /**
-     * @brief Construye un bloque-moneda en una posición dada.
+     * @brief Constructor a partir d'un punt.
      *
-     * @param pos Coordenadas iniciales de la esquina superior izquierda.
+     * Col·loca la cantonada superior esquerra a `pos` i estableix la mida estàndard.
+     *
+     * @param pos Punt (`pro2::Pt`) amb coordenades x i y de la cantonada.
      */
-    Block_Coin(pro2::Pt pos) : left_(pos.x), top_(pos.y), right_(pos.x + 16), bottom_(pos.y + 16) {} 
+    Block_Coin(pro2::Pt pos)
+        : left_(pos.x), top_(pos.y), right_(pos.x + 16), bottom_(pos.y + 16) {}
 
     /**
-     * @brief Construye un bloque-moneda en coordenadas dadas.
+     * @brief Constructor amb coordenades explícites.
      *
-     * @param posx Coordenada X de la esquina superior izquierda.
-     * @param posy Coordenada Y de la esquina superior izquierda.
+     * Similar al constructor anterior, amb valors enters.
+     *
+     * @param posx Coordenada X de la cantonada superior esquerra.
+     * @param posy Coordenada Y de la cantonada superior esquerra.
      */
     Block_Coin(int posx, int posy)
         : left_(posx), top_(posy), right_(posx + 16), bottom_(posy + 16) {}
 
     /**
-     * @brief Dibuja el bloque-moneda en la ventana.
+     * @brief Dibuixa el bloc-moneda a la finestra gràfica.
      *
-     * Selecciona textura según si ha sido golpeado.
+     * Selecciona entre la textura normal o la de bloc colpejat segons
+     * l'estat `hit_`.
      *
-     * @param window Referencia a la ventana gráfica.
+     * @param window Instància de `pro2::Window` per al render.
      */
     void paint(pro2::Window& window) const;
 
     /**
-     * @brief Consulta si el bloque ha sido golpeado.
-     *
-     * @returns `true` si `hit_ == true`.
+     * @brief Consulta si el bloc ha estat colpejat.
+     * @return `true` si `hit_` és cert.
      */
     bool is_hit() const;
 
     /**
-     * @brief Marca el bloque como golpeado y libera una moneda.
+     * @brief Colpeja el bloc i allibera una moneda.
      *
-     * Incrementa el contador `num_coins` si es la primera vez.
+     * Marca `hit_` i incrementa el comptador de monedes només la primera vegada
+     * que es colpeja.
      *
-     * @param num_coins Referencia al contador de monedas.
+     * @param num_coins Referència al comptador global de monedes.
      */
     void hit(int& num_coins);
 
     /**
-     * @brief Actualiza el estado de la moneda emergente.
+     * @brief Actualitza l'estat de l'animació de la moneda.
      *
-     * Controla la animación de aparición de la moneda.
+     * Disminueix `show_coin_` fins arribar a zero.
      */
     void update_coin();
 
     /**
-     * @brief Dibuja la moneda emergente si corresponde.
+     * @brief Dibuixa la moneda emergent si és necessari.
      *
-     * @param window Referencia a la ventana gráfica.
+     * Mostra l'animació de frames i posiciona la moneda per sobre del bloc.
+     *
+     * @param window Instància de `pro2::Window` per al render de la moneda.
      */
     void paint_coin(pro2::Window& window) const;
 
     /**
-     * @brief Devuelve la coordenada X del borde izquierdo.
-     *
-     * @returns `left_`.
+     * @brief Obté la coordenada X del costat esquerre.
+     * @return Valor de `left_`.
      */
-    int left() const {
-        return left_;
-    }
+    int left() const { return left_; }
 
     /**
-     * @brief Devuelve la coordenada Y del borde superior.
-     *
-     * @returns `top_`.
+     * @brief Obté la coordenada Y del costat superior.
+     * @return Valor de `top_`.
      */
-    int top() const {
-        return top_;
-    }
+    int top() const { return top_; }
 
     /**
-     * @brief Devuelve la coordenada X del borde derecho.
-     *
-     * @returns `right_`.
+     * @brief Obté la coordenada X del costat dret.
+     * @return Valor de `right_`.
      */
-    int right() const {
-        return right_;
-    }
+    int right() const { return right_; }
 
     /**
-     * @brief Devuelve la coordenada Y del borde inferior.
-     *
-     * @returns `bottom_`.
+     * @brief Obté la coordenada Y del costat inferior.
+     * @return Valor de `bottom_`.
      */
-    int bottom() const {
-        return bottom_;
-    }
+    int bottom() const { return bottom_; }
 
     /**
-     * @brief Comprueba cruce hacia abajo del bloque.
+     * @brief Detecta cruïlla descendint d'un punt amb el bloc.
      *
-     * @param plast Posición anterior del punto.
-     * @param pcurr Posición actual del punto.
-     * @returns `true` si el punto cruza el borde superior moviéndose hacia abajo.
+     * @param pmod Rectangule `pro2::Rect` que ajusta la mida del punt.
+     * @param plast Posició anterior del punt.
+     * @param pcurr Posició actual del punt.
+     * @return `true` si el punt travessa el costat superior movent-se cap avall.
      */
     bool has_crossed_block_downwards(pro2::Rect pmod, pro2::Pt plast, pro2::Pt pcurr) const;
 
     /**
-     * @brief Comprueba cruce hacia arriba del bloque.
+     * @brief Detecta cruïlla ascendint d'un punt amb el bloc.
      *
-     * @param plast Posición anterior del punto.
-     * @param pcurr Posición actual del punto.
-     * @returns `true` si el punto cruza el borde inferior moviéndose hacia arriba.
+     * @param pmod Rectangule de modificació del punt.
+     * @param plast Posició anterior del punt.
+     * @param pcurr Posició actual del punt.
+     * @return `true` si el punt travessa el costat inferior movent-se cap amunt.
      */
     bool has_crossed_block_upwards(pro2::Rect pmod, pro2::Pt plast, pro2::Pt pcurr) const;
 
     /**
-     * @brief Comprueba cruce de izquierda a derecha.
+     * @brief Detecta cruïlla horitzontal d'esquerra a dreta.
      *
-     * @param plast Posición anterior del punto.
-     * @param pcurr Posición actual del punto.
-     * @returns `true` si cruza el borde izquierdo moviéndose hacia la derecha.
+     * @param pmod Rectangule de modificació del punt.
+     * @param plast Posició anterior del punt.
+     * @param pcurr Posició actual del punt.
+     * @return `true` si travessa el costat esquerre movent-se cap a la dreta.
      */
     bool has_crossed_block_left_to_right(pro2::Rect pmod, pro2::Pt plast, pro2::Pt pcurr) const;
 
     /**
-     * @brief Comprueba cruce de derecha a izquierda.
+     * @brief Detecta cruïlla horitzontal de dreta a esquerra.
      *
-     * @param plast Posición anterior del punto.
-     * @param pcurr Posición actual del punto.
-     * @returns `true` si cruza el borde derecho moviéndose hacia la izquierda.
+     * @param pmod Rectangule de modificació del punt.
+     * @param plast Posició anterior del punt.
+     * @param pcurr Posició actual del punt.
+     * @return `true` si travessa el costat dret movent-se cap a l'esquerra.
      */
     bool has_crossed_block_right_to_left(pro2::Rect pmod, pro2::Pt plast, pro2::Pt pcurr) const;
 
     /**
-     * @brief Obtiene el rectángulo que delimita el bloque-moneda.
-     *
-     * @returns Un `pro2::Rect` con `left`, `top`, `right` y `bottom`.
+     * @brief Retorna el rectangle que delimita el bloc.
+     * @return `pro2::Rect` amb `left`, `top`, `right` i `bottom`.
      */
-    pro2::Rect get_rect() const {
-        return {left_, top_, right_, bottom_};
-    }
+    pro2::Rect get_rect() const { return {left_, top_, right_, bottom_}; }
 };
 
-#endif
+#endif // BLOCK_COIN_HH

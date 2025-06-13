@@ -4,40 +4,61 @@
 #include "window.hh"
 #include <vector>
 
+/**
+ * @class Coin_Counter
+ * @brief Gestiona i mostra el comptador de monedes en la interfície del joc.
+ *
+ * La classe Coin_Counter proveeix funcions per renderitzar l'icona de moneda
+ * i dibuixar el nombre de monedes recollides utilitzant una font pixelada
+ * integrada.
+ */
 class Coin_Counter {
  private:
     static const std::vector<std::vector<int>> coin_texture_;
 
  public:
+    /**
+     * @brief Constructor per defecte.
+     *
+     * No realitza cap inicialització especial, ja que el comptador
+     * es basa en paràmetres que es passen a paint_interface().
+     */
     Coin_Counter() {}
 
     /**
-     * @brief Dibuja un dígito en la ventana usando la fuente interna.
+     * @brief Dibuixa un dígit individual en la finestra.
      *
-     * Representa el `digit` en pantalla utilizando patrones predefinidos
-     * (`digit_font_`), situándolo con su esquina superior izquierda
-     * en `(dx, dy)` y usando `font_h` filas por `font_w` columnas.
+     * Escala i posiciona el patró corresponent a `digit` a partir de la
+     * font integrada. Cada glif ocupa `font_h`×`font_w` píxels i es col·loca
+     * a la posició `(dx, dy)`.
      *
-     * @param digit El número (0–9) que se quiere dibujar.
-     * @param dx Coordenada X de destino para el dígito.
-     * @param dy Coordenada Y de destino para el dígito.
-     * @param font_h Altura en píxeles de cada glifo.
-     * @param font_w Anchura en píxeles de cada glifo.
+     * @param window Instància de `pro2::Window` on es farà el render.
+     * @param digit Nombre entre 0 i 9 que volem mostrar.
+     * @param dx Coordenada X de la cantonada superior esquerra del glif.
+     * @param dy Coordenada Y de la cantonada superior esquerra del glif.
+     * @param font_h Altura en píxels de cada dígit escalat.
+     * @param font_w Amplada en píxels de cada dígit escalat.
      */
-    void draw_digit(pro2::Window& window, int digit, int dx, int dy, const int font_h, const int font_w);
+    void draw_digit(pro2::Window& window,
+                    int digit,
+                    int dx,
+                    int dy,
+                    const int font_h,
+                    const int font_w);
 
     /**
-     * @brief Pinta la interfaz de usuario (por ejemplo, contador de monedas).
+     * @brief Pinta la interfície de comptador de monedes.
      *
-     * Dibuja los elementos de la interfaz (texto, iconos, contadores, etc.)
-     * en la capa superior de la ventana, basándose en el valor de `num_coins`
-     * y actualizando su apariencia.
+     * Mostra la icona de moneda, una creu de separació i el valor de
+     * `num_coins` en format de dos dígits. El valor es limita a 0–99,
+     * descontant 100 si s'excedeix, per a un comptador animat.
      *
-     * @param num_coins Referencia al número de monedas que se mostrará.
-     *                   Puede modificarse para devolver eventos de la UI.
+     * @param window Instància de `pro2::Window` on es farà el render.
+     * @param num_coins Referència al nombre de monedes recollides. Pot ser
+     *                   modificat si excedeix 99.
      */
     void paint_interface(pro2::Window& window, int& num_coins);
 };
 
 
-#endif
+#endif // COIN_COUNTER_HH

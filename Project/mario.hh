@@ -9,153 +9,167 @@
 #include "block_coin.hh"
 #include "utils.hh"
 
+/**
+ * @class Mario
+ * @brief Representa el personatge controlat pel jugador (Mario).
+ *
+ * Gestiona la posició, física, animacions i interaccions de Mario amb
+ * plataformes, blocs i monedes dins del nivell.
+ */
 class Mario {
  private:
-    // Posición de Mario
+    /// Posició actual i posició anterior de Mario.
     pro2::Pt pos_, last_pos_;
-    // Velocidad actual (x, y)
+    /// Velocitat actual (components x i y).
     pro2::Pt speed_ = {0, 0};
-    // Aceleración actual (x, y)
+    /// Aceleració temporal per salts o efectes verticals.
     pro2::Pt accel_ = {0, 0};
-    // Tiempo transcurrido en aceleración
+    /// Comptador de frames per a l'aplicació de l'acceleració.
     int      accel_time_ = 0;
 
-    // Indicador si Mario está en el suelo
+    /// Indicador si Mario està tocat al terra.
     bool grounded_ = false;
-    // Dirección a la que mira Mario (false = derecha, true = izquierda)
-	bool looking_left_ = false;
-    // Indicador mario es pequeño (false) o grande (true)
+    /// Direcció en què mira Mario (false = dreta, true = esquerra).
+    bool looking_left_ = false;
+    /// Estat de mida de Mario (false = petit, true = gran).
     bool status_mario_ = false;
 
     /**
-     * @brief Aplica la física básica a Mario.
+     * @brief Aplica la física bàsica (gravetat, acceleració, moviment).
      *
-     * Calcula nuevas velocidad y posición según aceleración,
-     * gravedad y fricción, y actualiza `grounded_` si corresponder.
+     * Calcula la nova velocitat i posició de Mario segons la gravetat,
+     * la fricció i qualsevol acceleració activa, i reinicialitza l'estat
+     * de `grounded_` si s'escau.
      */
-	void apply_physics_();
+    void apply_physics_();
 	
  public:
     /**
-     * @brief Construye un objeto Mario en la posición indicada.
+     * @brief Constructor amb posició inicial.
      *
-     * Inicializa la posición actual y la posición anterior de Mario
-     * al punto `pos`, sin velocidad ni aceleración.
+     * Inicialitza Mario a la coordenada `pos`, sense velocitat ni acceleració.
      *
-     * @param pos Coordenadas iniciales de Mario en el mundo.
+     * @param pos Punt (`pro2::Pt`) amb la posició inicial de Mario.
      */
     Mario(pro2::Pt pos) : pos_(pos), last_pos_(pos) {}
 
     /**
-     * @brief Dibuja a Mario en la ventana gráfica.
+     * @brief Dibuixa Mario a la finestra gràfica.
      *
-     * Renderiza el sprite de Mario (dependiendo de su estado normal o 
-     * volteado) en la posición `pos_`, teniendo en cuenta el zoom.
+     * Renderitza el sprite corresponent segons la mida (petit o gran)
+     * i l'orientació (`looking_left_`). Utilitza `paint_sprite()`.
      *
-     * @param window Referencia a la ventana donde se pinta a Mario.
+     * @param window Instància de `pro2::Window` per al renderitzat.
      */
     void paint(pro2::Window& window) const;
 
     /**
-     * @brief Obtiene la posición actual de Mario.
+     * @brief Obtén la posició actual de Mario.
      *
-     * @returns Un `Pt` con las coordenadas `x` e `y` de Mario.
+     * @return Punt (`pro2::Pt`) amb les coordenades x i y de Mario.
      */
-    pro2::Pt pos() const {
-        return pos_;
-    }
+    pro2::Pt pos() const { return pos_; }
 
     /**
-     * @brief Establece la coordenada X de la posición de Mario.
+     * @brief Estableix la coordenada X de Mario.
      *
-     * @param x Nueva coordenada horizontal para Mario.
+     * @param x Nova coordenada horitzontal.
      */
-    void set_x(int x) {
-        pos_.x = x;
-    }
+    void set_x(int x) { pos_.x = x; }
 
     /**
-     * @brief Establece la coordenada Y de la posición de Mario.
+     * @brief Estableix la coordenada Y de Mario.
      *
-     * @param y Nueva coordenada vertical para Mario.
+     * @param y Nova coordenada vertical.
      */
-    void set_y(int y) {
-        pos_.y = y;
-    }
+    void set_y(int y) { pos_.y = y; }
 
     /**
-     * @brief Comprueba si Mario está en el suelo.
+     * @brief Consulta si Mario està al terra.
      *
-     * @returns `true` si Mario está apoyado en una plataforma o bloque;
-     *          `false` si está en el aire.
+     * @return `true` si `grounded_` és cert.
      */
-    bool is_grounded() const {
-        return grounded_;
-    }
+    bool is_grounded() const { return grounded_; }
 
     /**
-     * @brief Marca o desmarca a Mario como en el suelo.
+     * @brief Marca o desmarca l'estat de terra.
      *
-     * Si `grounded` es `true`, se resetea la velocidad vertical a cero.
+     * Si `grounded` és cert, reinicia la velocitat vertical a zero.
      *
-     * @param grounded Nuevo estado de `grounded_`.
+     * @param grounded Nou valor per a `grounded_`.
      */
     void set_grounded(bool grounded) {
         grounded_ = grounded;
-        if (grounded_) {
-            speed_.y = 0;
-        }
+        if (grounded_) speed_.y = 0;
     }
 
     /**
-     * @brief Alterna el estado de `grounded_` de Mario.
+     * @brief Canvia l'estat de `grounded_`.
      *
-     * Cambia de suelo a aire o viceversa, invocando internamente a `set_grounded`.
+     * Alterna entre aire i terra, cridant internament `set_grounded()`.
      */
-    void toggle_grounded() {
-        set_grounded(!grounded_);
-    }
+    void toggle_grounded() { set_grounded(!grounded_); }
 
     /**
-     * @brief Hace que Mario realice un salto.
+     * @brief Fa que Mario salti.
      *
-     * Si Mario está en el suelo (`grounded_ == true`), modifica su
-     * componente vertical de velocidad para iniciar el salto y 
-     * desmarca `grounded_`.
+     * Si està al terra, aplica una acceleració vertical negativa
+     * i posa `grounded_` a false per iniciar el salt.
      */
     void jump();
 
     /**
-     * @brief Actualiza la lógica de Mario para el fotograma actual.
+     * @brief Actualitza la lògica de Mario cada fotograma.
      *
-     * Aplica física interna (`apply_physics_()`), comprueba colisiones
-     * contra plataformas y bloques, recoge monedas de `coins` o
-     * `block_coins`, y suma a `num_coins` cuando se recojan.
+     * Aplica física, processa entrades (salt, moviment horitzontal),
+     * detecta col·lisions amb plataformes, blocs i blocs-moneda,
+     * recull monedes i actualitza el contador `num_coins`.
      *
-     * @param window        Referencia a la ventana para leer entrada y cámara.
-     * @param platforms     Vector de plataformas del nivel.
-     * @param blocks        Vector de bloques sólidos del nivel.
-     * @param block_coins   Vector de bloques que contienen monedas.
-     * @param coins         Vector de monedas sueltas en el nivel.
-     * @param num_coins     Referencia al contador total de monedas recogidas.
+     * @param window Instància de `pro2::Window` per a entrades i càmera.
+     * @param platforms Conjunt de punters a plataformes.
+     * @param blocks Conjunt de punters a blocs sòlids.
+     * @param block_coins Conjunt de punters a blocs amb moneda.
+     * @param coins Conjunt de punters a monedes independents.
+     * @param num_coins Referència al comptador global de monedes.
      */
-    void update(pro2::Window& window, const std::set<Platform*>& platforms, std::set<Block*>& blocks, set<Block_Coin*>& block_coins, set<Coin*>& coins, int& num_coins);
+    void update(pro2::Window& window,
+                const std::set<Platform*>& platforms,
+                std::set<Block*>& blocks,
+                std::set<Block_Coin*>& block_coins,
+                std::set<Coin*>& coins,
+                int& num_coins);
 
+    /**
+     * @brief Rectangular modificador segons la mida de Mario.
+     *
+     * Proporciona offsets per definir la caixa de col·lisió
+     * segons si Mario és petit o gran.
+     *
+     * @return `pro2::Rect` amb els offsets {left, top, right, bottom}.
+     */
     pro2::Rect get_rect_modifiers() const {
-        if (status_mario_)
-            return {-8, 0, 8, 31};
-        return {-6, 0, 6, 15};
+        return status_mario_ ? pro2::Rect{-8, 0, 8, 31}
+                             : pro2::Rect{-6, 0, 6, 15};
     }
 
+    /**
+     * @brief Obtén el rectangle de col·lisió de Mario a l'espai món.
+     *
+     * Combina `pos_` amb els offsets de `get_rect_modifiers()`.
+     *
+     * @return `pro2::Rect` amb les coordenades absolutes.
+     */
     pro2::Rect get_rect() const {
-        pro2::Rect pos_mod = get_rect_modifiers();
-        return {pos_.x + pos_mod.left, pos_.y + pos_mod.top, pos_.x + pos_mod.right, pos_.y + pos_mod.bottom};
+        auto mod = get_rect_modifiers();
+        return {pos_.x + mod.left, pos_.y + mod.top,
+                pos_.x + mod.right, pos_.y + mod.bottom};
     }
 
  private:
-    // Sprites de Mario en estado normal
+    /// Sprite de Mario petit.
     static const std::vector<std::vector<int>> mario_sprite_normal_;
+    /// Sprite de Mario gran.
     static const std::vector<std::vector<int>> mario_sprite_big_;
 };
 
-#endif
+#endif // MARIO_HH

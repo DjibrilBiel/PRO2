@@ -6,97 +6,114 @@
 
 /**
  * @class Platform
+ * @brief Representa una plataforma rectangular en el món del joc.
  *
- * Representa una plataforma rectangular en el mundo del juego.
+ * La classe Platform defineix la posició, mida i textura d'una plataforma,
+ * i proporciona mètodes per renderitzar-la i detectar col·lisions amb punts.
  */
 class Platform {
  private:
-    // Coordenadas del borde de la plataforma
-    int left_, right_, top_, bottom_;
+    /**
+     * @brief Coordenada X del costat esquerre de la plataforma.
+     */
+    int left_,
+    /**
+     * @brief Coordenada X del costat dret de la plataforma.
+     */
+        right_,
+    /**
+     * @brief Coordenada Y del costat superior de la plataforma.
+     */
+        top_,
+    /**
+     * @brief Coordenada Y del costat inferior de la plataforma.
+     */
+        bottom_;
 
     /**
-     * @brief Textura de la plataforma en forma de sprite.
+     * @brief Textura de la plataforma com a matriu de píxels.
      *
-     * Contiene patrones de píxeles para el dibujo de la plataforma.
+     * Patró estàtic de colors utilitzat per pintar la superfície
+     * de la plataforma de manera repetitiva.
      */
-	static const std::vector<std::vector<int>> platform_texture_;
+    static const std::vector<std::vector<int>> platform_texture_;
 
  public:
     /**
-     * @brief Constructor por defecto.
+     * @brief Constructor per defecte.
      *
-     * Inicializa todos los bordes a cero.
+     * Inicialitza una plataforma buida amb totes les coordenades a zero.
      */
-    Platform() : left_(0), right_(0), top_(0), bottom_(0) {}
+    Platform()
+        : left_(0), right_(0), top_(0), bottom_(0) {}
 
     /**
-     * @brief Constructor de copia.
+     * @brief Constructor de còpia.
      *
-     * Duplica las coordenadas de otro objeto Platform.
+     * Crea una nova plataforma amb les mateixes coordenades que una altra.
      *
-     * @param other Plataforma a copiar.
+     * @param other Plataforma de la qual copiar les coordenades.
      */
     Platform(const Platform& other)
         : left_(other.left_), right_(other.right_), top_(other.top_), bottom_(other.bottom_) {}
 
     /**
-     * @brief Construye una plataforma con bordes especificados.
+     * @brief Constructor amb coordenades explícites.
      *
-     * @param left   Eje X del borde izquierdo.
-     * @param right  Eje X del borde derecho.
-     * @param top    Eje Y del borde superior.
-     * @param bottom Eje Y del borde inferior.
+     * Defineix la posició i mida de la plataforma mitjançant les coordenades
+     * dels seus costats.
+     *
+     * @param left   Coordenada X del costat esquerre.
+     * @param right  Coordenada X del costat dret.
+     * @param top    Coordenada Y del costat superior.
+     * @param bottom Coordenada Y del costat inferior.
      */
     Platform(int left, int right, int top, int bottom)
         : left_(left), right_(right), top_(top), bottom_(bottom) {}
 
     /**
-     * @brief Dibuja la plataforma en la ventana.
+     * @brief Dibuixa la plataforma a la finestra gràfica.
      *
-     * Usa la textura interna `platform_texture_` para renderizar
-     * cada bloque de la plataforma.
+     * Utilitza la textura `platform_texture_` per mapar colors a cada píxel
+     * dins de la regió de la plataforma i crida a `window.set_pixel()`.
      *
-     * @param window Referencia a la ventana gráfica.
+     * @param window Instància de `pro2::Window` on es realitza el renderitzat.
      */
     void paint(pro2::Window& window) const;
 
     /**
-     * @brief Comprueba si un punto ha cruzado el borde superior de la plataforma
-     *        moviéndose hacia abajo.
+     * @brief Detecta si un punt ha creuat el sostre de la plataforma movent-se
+     *        cap avall.
      *
-     * Útil para detectar colisiones "pisando" la plataforma.
+     * Útil per implementar la lògica de suport (grounding) quan Mario o altres
+     * entitats cauen sobre la plataforma.
      *
-     * @param plast Posición anterior del punto.
-     * @param pcurr Posición actual del punto.
-     * @returns `true` si `plast.y` estaba por encima y `pcurr.y` por debajo del top_.
+     * @param plast Posició anterior del punt.
+     * @param pcurr Posició actual del punt.
+     * @return `true` si el punt ha travessat el costat superior de la plataforma.
      */
     bool has_crossed_floor_downwards(pro2::Pt plast, pro2::Pt pcurr) const;
 
     /**
-     * @brief Comprueba si un punto está dentro de la plataforma.
+     * @brief Comprova si un punt es troba dins de la plataforma.
      *
-     * @param pt Punto con coordenadas `x`,`y`.
-     * @returns `true` si `pt` está en el rectángulo definido por los bordes.
+     * @param pt Punt amb coordenades X i Y.
+     * @return `true` si `pt` està contingut en el rectangle de la plataforma.
      */
     bool is_pt_inside(pro2::Pt pt) const;
 
     /**
-     * @brief Devuelve la coordenada Y del borde superior.
-     *
-     * @returns Valor de `top_`.
+     * @brief Retorna la coordenada Y del costat superior.
+     * @return Valor de `top_`.
      */
-    int top() const {
-        return top_;
-    }
+    int top() const { return top_; }
 
     /**
-     * @brief Obtiene el rectángulo que ocupa la plataforma.
+     * @brief Obté el rectangle que delimita la plataforma.
      *
-     * @returns Un `pro2::Rect` con `left`, `top`, `right` y `bottom`.
+     * @return `pro2::Rect` amb `left`, `top`, `right` i `bottom`.
      */
-    pro2::Rect get_rect() const {
-        return {left_, top_, right_, bottom_};
-    }
+    pro2::Rect get_rect() const { return {left_, top_, right_, bottom_}; }
 };
 
-#endif
+#endif // PLATFORM_HH

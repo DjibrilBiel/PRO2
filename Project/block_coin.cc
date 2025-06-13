@@ -6,7 +6,7 @@ const int b = 0x000000;
 const int _ = -1;
 
 // clang-format off
-const vector<vector<int>> Block_Coin::block_texture_ = {
+const std::vector<std::vector<int>> Block_Coin::block_texture_ = {
     {w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w},
     {c, c, c, c, c, c, c, b, c, c, c, c, c, c, c, b},
     {c, c, c, c, c, c, c, b, c, c, c, c, c, c, c, b},
@@ -25,7 +25,7 @@ const vector<vector<int>> Block_Coin::block_texture_ = {
     {b, b, b, b, b, b, b, b, b, b, b, b, b, b, b, b},
 };
 
-const vector<vector<int>> Block_Coin::block_hit_texture_ = {
+const std::vector<std::vector<int>> Block_Coin::block_hit_texture_ = {
     {b, b, b, b, b, b, b, b, b, b, b, b, b, b, b, b},
     {b, c, c, c, c, c, c, c, c, c, c, c, c, c, c, b},
     {b, c, b, c, c, c, c, c, c, c, c, c, c, b, c, b},
@@ -48,7 +48,7 @@ const int cc = 0xFF9800;
 const int cs = 0xFF5722;
 const int cw = 0xFFFFFF;
 
-const vector<vector<int>> Block_Coin::coin_from_block_0_ = {
+const std::vector<std::vector<int>> Block_Coin::coin_from_block_0_ = {
     { _, _, _,cc,cs, _, _, _},
     { _, _, _,cc,cs, _, _, _},
     { _, _,cc,cs,cs,cs, _, _},
@@ -65,7 +65,7 @@ const vector<vector<int>> Block_Coin::coin_from_block_0_ = {
     { _, _, _,cc,cs, _, _, _}
 };
 
-const vector<vector<int>> Block_Coin::coin_from_block_1_ = {
+const std::vector<std::vector<int>> Block_Coin::coin_from_block_1_ = {
     { _, _, _,cc,cc, _, _, _},
     { _, _,cc,cc,cc,cc, _, _},
     { _,cc,cc,cc,cc,cc,cc, _},
@@ -82,7 +82,7 @@ const vector<vector<int>> Block_Coin::coin_from_block_1_ = {
     { _, _, _,cc,cc, _, _, _}
 };
 
-const vector<vector<int>> Block_Coin::coin_from_block_2_ = {
+const std::vector<std::vector<int>> Block_Coin::coin_from_block_2_ = {
     { _, _, _,cw,cs, _, _, _},
     { _, _, _,cw,cs, _, _, _},
     { _, _,cw,cw,cw,cs, _, _},
@@ -99,7 +99,7 @@ const vector<vector<int>> Block_Coin::coin_from_block_2_ = {
     { _, _, _,cw,cs, _, _, _}
 };
 
-const vector<vector<int>> Block_Coin::coin_from_block_3_ = {
+const std::vector<std::vector<int>> Block_Coin::coin_from_block_3_ = {
     { _, _, _, _,cc, _, _, _},
     { _, _, _, _,cc, _, _, _},
     { _, _, _, _,cc, _, _, _},
@@ -156,7 +156,7 @@ void Block_Coin::paint_coin(pro2::Window& window) const {
         const int ysz = coin_from_block_0_[0].size();
         for (int i = 0; i <= xsz; i++) {
             for (int j = 0; j < ysz; j++) {
-                static vector<vector<int>> actual_coin_texture;
+                static std::vector<std::vector<int>> actual_coin_texture;
                 const int num_frame = (window.frame_count() % 20) / 5;
                 if (num_frame == 0) {
                     actual_coin_texture = coin_from_block_0_;

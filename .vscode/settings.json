@@ -68,6 +68,8 @@
         "__node_handle": "cpp",
         "map": "cpp",
         "set": "cpp",
-        "unordered_set": "cpp"
+        "unordered_set": "cpp",
+        "mutex": "cpp",
+        "__errc": "cpp"
     }
 }

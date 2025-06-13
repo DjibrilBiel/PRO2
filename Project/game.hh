@@ -9,115 +9,150 @@
 #include "coin.hh"
 #include "block_coin.hh"
 
+/**
+ * @class Game
+ * @brief Controla la lògica principal del joc i el seu renderitzat.
+ *
+ * La classe Game gestiona el personatge principal (Mario), els objectes
+ * del nivell (plataformes, blocs, monedes i blocs amb monedes),
+ * els cercadors espacials (Finder) per a detecció de col·lisions i ratjos
+ * de recollida, el comptador de monedes i l'estat de finalització del joc.
+ */
 class Game {
-    // Personaje principal
+ private:
+    /**
+     * @brief Personatge principal controllat pel jugador.
+     */
     Mario                   mario_;
-    // Objetos del nivel
+    
+    /**
+     * @brief Vector de plataformes del nivell.
+     */
     std::vector<Platform>   platforms_;
+
+    /**
+     * @brief Vector de blocs trencables del nivell.
+     */
     std::vector<Block>      blocks_;
+
+    /**
+     * @brief Vector de monedes recollibles independents.
+     */
     std::vector<Coin>       coins_;
+
+    /**
+     * @brief Vector de blocs que alliberen una moneda en ser colpejats.
+     */
     std::vector<Block_Coin> block_coins_;
 
-    // Buscadores de colisiones y recogida de objetos
+    /**
+     * @brief Cercadors espacials per a detecció de col·lisions i recollida.
+     *
+     * Cada Finder indexa els objectes corresponents en una graella per
+     * fer consultes ràpides d'intersecció amb el rectangle de visió.
+     */
     Finder<Platform>   platform_finder_;
     Finder<Block>      block_finder_;
     Finder<Coin>       coin_finder_;
     Finder<Block_Coin> block_coin_finder_;
 
+    /**
+     * @brief Comptador i icona de monedes recollides.
+     */
     Coin_Counter ccounter_;
 
-    // Contador de monedas recogidas
+    /**
+     * @brief Quantitat de monedes que ha recollit el jugador fins ara.
+     */
     int  num_coins_taken_ = 0;
-    // Indicador de finalización del juego
+
+    /**
+     * @brief Indicador d'estat de finalització del joc.
+     */
     bool finished_;
 
     /**
-     * @brief Procesa la entrada de teclado para el control de Mario.
+     * @brief Processa l'entrada de teclat per controlar Mario.
      *
-     * Consulta el estado de las teclas en la ventana y aplica
-     * la lógica de movimiento, salto, etc., sobre el objeto `mario_`.
+     * Llegeix l'estat de les tecles de la finestra i executa la
+     * lògica de moviment, salts o sortir del joc.
      *
-     * @param window Referencia a la ventana gráfica donde se detectan las teclas.
+     * @param window Instància de `pro2::Window` que proveeix l'entrada.
      */
     void process_keys(pro2::Window& window);
 
     /**
-     * @brief Actualiza la lógica de todos los objetos del juego.
+     * @brief Actualitza la lògica de tots els objectes per fotograma.
      *
-     * Recorre plataformas, bloques, monedas y combinaciones bloque-moneda,
-     * aplica físicas, colisiones y recoge monedas. Incrementa `num_coins_taken_`
-     * cuando corresponda y marca `finished_` si se cumple la condición de fin.
+     * Recupera els objectes visibles via Finder, aplica física,
+     * gestiona col·lisions i recollida de monedes, i actualitza
+     * l'estat de blocs i monedes animades.
      *
-     * @param window Referencia a la ventana para obtener información de cámara o Zoom.
+     * @param window Instància de `pro2::Window` per accedir a càmera i temps.
      */
     void update_objects(pro2::Window& window);
 
     /**
-     * @brief Actualiza la posición de la cámara en función de Mario.
+     * @brief Mou la càmera per seguir Mario dins els límits del món.
      *
-     * Centra o desplaza suavemente la cámara para seguir al personaje,
-     * ajustando la vista de juego dentro de los límites del mundo.
+     * Calcula desplaçaments suau per mantenir Mario dins d'una zona
+     * central del viewport i actualitza la posició de la càmera.
      *
-     * @param window Referencia a la ventana para consultar dimensiones y zoom.
+     * @param window Instància de `pro2::Window` per modificar la càmera.
      */
     void update_camera(pro2::Window& window);
 
  public:
     /**
-     * @brief Construye el juego con un área de juego de tamaño dado.
+     * @brief Crea una instància del joc amb la mida de finestra especificada.
      *
-     * Inicializa el nivel, el personaje Mario, los distintos vectores de
-     * objetos (plataformas, bloques, monedas…) y los buscadores (Finder).
+     * Inicialitza Mario, carrega vectors d'objectes i indexa
+     * cada objecte al seu Finder corresponent.
      *
-     * @param width  Ancho en píxels de la ventana/juego.
-     * @param height Alto en píxels de la ventana/juego.
+     * @param width Amplada de la finestra/joc en píxels.
+     * @param height Alçada de la finestra/joc en píxels.
      */
     Game(int width, int height);
 
     /**
-     * @brief Actualiza el estado completo del juego por fotograma.
+     * @brief Avança l'estat del joc un fotograma.
      *
-     * Llama internamente a `process_keys()`, `update_objects()` y
-     * `update_camera()` para avanzar la simulación una unidad de tiempo.
+     * Invoca process_keys(), update_objects() i update_camera() per
+     * fer progressar la simulació i resposta a l'entrada.
      *
-     * @param window Referencia a la ventana gráfica actual.
+     * @param window Instància de `pro2::Window` actual.
      */
     void update(pro2::Window& window);
 
     /**
-     * @brief Pinta en pantalla todos los elementos del juego.
+     * @brief Dibuixa tots els elements del joc a la finestra.
      *
-     * Dibuja el escenario, plataformas, bloques, monedas, Mario y la interfaz
-     * en la ventana, teniendo en cuenta la posición de la cámara.
+     * Renderitza fons, plataformes, blocs, monedes, Mario i
+     * la interfície (comptador) respectant la posició de la càmera.
      *
-     * @param window Referencia a la ventana gráfica donde se renderiza.
+     * @param window Instància de `pro2::Window` per al renderitzat.
      */
     void paint(pro2::Window& window);
 
     /**
-     * @brief Comprueba si el juego ha finalizado.
+     * @brief Indica si el joc ha finalitzat.
      *
-     * Se marca como terminado cuando se cumple la condición de fin de nivel
-     * (por ejemplo, alcanzar la meta o quedarse sin vidas).
-     *
-     * @returns `true` si el juego está finalizado; `false` en caso contrario.
+     * @return `true` si s'ha activat l'estat de finalització (`finished_`).
      */
-    bool is_finished() const {
-        return finished_;
-    }
+    bool is_finished() const { return finished_; }
 
     /**
-     * @brief Devuelve el número de monedas recogidas por Mario.
+     * @brief Retorna el nombre de monedes recollides.
      *
-     * @returns Entero con la cantidad total de monedas que se han tomado hasta ahora.
+     * @return Enter amb el total de monedes preses pel jugador.
      */
-    int num_coins_taken() {
-        return num_coins_taken_;
-    }
+    int num_coins_taken() const { return num_coins_taken_; }
 
  private:
-    // Color de fondo
+    /**
+     * @brief Color de fons del joc.
+     */
     static constexpr int sky_blue = 0x5c94fc;
 };
 
-#endif
+#endif // GAME_HH
